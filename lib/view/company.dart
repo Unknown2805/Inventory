@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import './constant.dart';
@@ -14,6 +15,13 @@ class  CompanyState extends State <Company> {
   bool search = true;
   bool heightBox = true;
   @override
+
+  List _users = [];
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -136,16 +144,18 @@ class  CompanyState extends State <Company> {
 
   Widget companieslist(BuildContext context){
     return Expanded(
-      child: Container(
+      child: ListView.builder(itemBuilder: (context, i){
+      var _user = _users[i];
+        return Container(
    
-        padding: EdgeInsets.symmetric(horizontal: 25,vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 25),
         child: SingleChildScrollView(
           child:Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
               Container(
-                height: heightBox ? 50 : 200,
+                height: heightBox ? 50 : 170,
                 decoration: BoxDecoration(
                         color: boxColor.withOpacity(0.6),
                         borderRadius: BorderRadius.circular(10),
@@ -219,7 +229,7 @@ class  CompanyState extends State <Company> {
                       children: [
                          Icon(FluentIcons.building_24_filled,color: primarycolor,size: 25),
                         SizedBox(width: 10),
-                        Text("Company 1",style: TextStyle(color: white,fontSize: 16,fontWeight: FontWeight.bold ))
+                        Text("${_user["nama_perusahaan"]}",style: TextStyle(color: white,fontSize: 16,fontWeight: FontWeight.bold ))
                       ],
                     ),             
                   ],
@@ -264,7 +274,7 @@ class  CompanyState extends State <Company> {
         
                       Container(
                         padding:EdgeInsets.only(left:10),
-                        child: const Text("Company 1", style: TextStyle(color: primarycolor,fontSize: 16,fontWeight: FontWeight.bold))
+                        child:  Text("${_user["nama_perusahaan"]}", style: TextStyle(color: primarycolor,fontSize: 16,fontWeight: FontWeight.bold))
                       ),
                       SizedBox(height: 10,),
                       SingleChildScrollView(
@@ -280,7 +290,7 @@ class  CompanyState extends State <Company> {
                                   width: 35,
                                   child: Icon(FluentIcons.location_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("Jl.Tebet no.12",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["alamat"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -293,7 +303,7 @@ class  CompanyState extends State <Company> {
                                   width: 35,
                                   child: Icon(FluentIcons.mail_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("Company1@intek.com",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["email"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -306,7 +316,7 @@ class  CompanyState extends State <Company> {
                                   width: 35,
                                   child: Icon(FluentIcons.globe_location_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("-085697783928",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["lat"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -319,7 +329,7 @@ class  CompanyState extends State <Company> {
                                   width: 35,
                                   child: Icon(FluentIcons.globe_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("-085697783928",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["long"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -328,49 +338,28 @@ class  CompanyState extends State <Company> {
                           ],
                         ),
                       ),
-                      Container(
-                              width: 280, 
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Container(
-                                    width: 65,
-                                    height: 30,
-                                    margin: EdgeInsets.only(right: 10),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: green,
-                                    ),
-                                    child: TextButton(
-                                      onPressed: (){},
-                                      child: Text("edit",style: TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.normal),)
-                                    )
-                                  ),
-                                  Container(
-                                    width: 65,
-                                    height: 30,
-                                    margin: EdgeInsets.only(right: 10),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: red,
-                                    ),
-                                    child: TextButton(
-                                      onPressed: (){},
-                                      child: Text("delete",style: TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.normal),)
-                                    )
-                                  ),
-                                ],
-                              ),
-                            ),
+                      
                   ],)
                 ),),
               ),
-              SizedBox(height: 15),     
+              SizedBox(height: 5),     
             ],
           ) 
         )
+      );
+      },
+      itemCount: _users.length,
       )
 
     );
+  }
+  getData()async{
+      var _dio = Dio();
+      var response = await _dio.get("http://174.138.23.211:8282/api/apiCompanies");
+      var user = response.data;
+  setState(() {
+    _users = user;
+    
+  });
   }
 }

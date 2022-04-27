@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import './constant.dart';
@@ -15,6 +16,13 @@ class _CustomersState extends State<Customers> {
   bool search = true ;
   bool heightBox = true;
   @override
+
+  List _users = [];
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -137,9 +145,11 @@ class _CustomersState extends State<Customers> {
 
   Widget customerslist(BuildContext context){
     return Expanded(
-      child: Container(
+      child: ListView.builder(itemBuilder: (context, i){
+        var _user = _users[i];
+        return Container(
    
-        padding: EdgeInsets.symmetric(horizontal: 25,vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 25),
         child: SingleChildScrollView(
           child:Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,7 +227,7 @@ class _CustomersState extends State<Customers> {
                   children: [
                     Icon(FluentIcons.people_24_filled,color:Color(0xffa9def9),size: 25),
                     SizedBox(width: 10),
-                    Text("Customer 1",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold ))
+                    Text("${_user["nama"]}",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold ))
                   ],
                 )
               ))
@@ -262,7 +272,7 @@ class _CustomersState extends State<Customers> {
         
                       Container(
                         padding:EdgeInsets.only(left:10),
-                        child: const Text("Costumer 1", style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold))
+                        child: Text("${_user["nama"]}", style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold))
                       ),
                       SizedBox(height: 10,),
                       SingleChildScrollView(
@@ -278,7 +288,7 @@ class _CustomersState extends State<Customers> {
                                   width: 35,
                                   child: Icon(FluentIcons.location_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("Jl.Tebet no.12",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["alamat"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -291,7 +301,7 @@ class _CustomersState extends State<Customers> {
                                   width: 35,
                                   child: Icon(FluentIcons.mail_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("Customer1@intek.com",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["email"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -304,11 +314,11 @@ class _CustomersState extends State<Customers> {
                                   width: 35,
                                   child: Icon(FluentIcons.call_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("085697783928",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["telepon"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
-                            SizedBox(height: 5),
+                       
                             
                           ],
                         ),
@@ -318,12 +328,24 @@ class _CustomersState extends State<Customers> {
                 ),
               ),
           ),
-              SizedBox(height: 15),     
+              SizedBox(height: 5),     
             ],
           ) 
         )
+      );
+      },
+      itemCount: _users.length,
       )
 
     );
+  }
+  getData()async{
+      var _dio = Dio();
+      var response = await _dio.get("http://174.138.23.211:8282/api/apiCustomers");
+      var user = response.data;
+  setState(() {
+    _users = user;
+    
+  });
   }
 }

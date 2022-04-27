@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/rendering.dart';
 import './constant.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+
 
 class Sales extends StatefulWidget {
   const Sales({ Key? key }) : super(key: key);
@@ -15,6 +17,13 @@ class Sales extends StatefulWidget {
 class _SalesState extends State<Sales> {
   bool search = true ;
   bool heightBox = true;
+
+  List _users = [];
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,17 +169,20 @@ class _SalesState extends State<Sales> {
   }
 
   Widget saleslist(BuildContext context){
+    
     return Expanded(
-      child: Container(
+      child: ListView.builder(itemBuilder: (context , i){
+        var _user = _users[i];
+        return Container(
    
-        padding: EdgeInsets.symmetric(horizontal: 25,vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 25,),
         child: SingleChildScrollView(
           child:Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
               Container(
-                height: heightBox ? 50 : 170,
+                height: heightBox ? 50 : 140,
                 decoration: BoxDecoration(
                         color: boxColor.withOpacity(0.6),
                         borderRadius: BorderRadius.circular(10),
@@ -241,7 +253,7 @@ class _SalesState extends State<Sales> {
                   children: [
                     Icon(FluentIcons.shopping_bag_24_filled,color: primarycolor,size: 25),
                     SizedBox(width: 10),
-                    Text("Sales 1",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold ))
+                    Text("${_user["nama"]}",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold ))
                   ],
                 )
               ),)
@@ -288,7 +300,7 @@ class _SalesState extends State<Sales> {
                         padding:EdgeInsets.only(left:10),
                         child: Row(
                           children: [
-                            const Text("Sales 1", style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),
+                            Text("${_user["nama"]}", style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),
                           ],
                         )
                       ),
@@ -306,7 +318,7 @@ class _SalesState extends State<Sales> {
                                   width: 35,
                                   child: Icon(FluentIcons.location_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("Jalan cikunir",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["alamat"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -319,7 +331,7 @@ class _SalesState extends State<Sales> {
                                   width: 35,
                                   child: Icon(FluentIcons.mail_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("sales1@intek.com",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["alamat"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -332,7 +344,7 @@ class _SalesState extends State<Sales> {
                                   width: 35,
                                   child: Icon(FluentIcons.call_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("085697783928",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["telepon"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -345,12 +357,24 @@ class _SalesState extends State<Sales> {
                   ],)
                 ),
               ),),
-              SizedBox(height: 15),     
+              SizedBox(height: 5),     
             ],
           ) 
         )
+      );
+      }
+      ,itemCount: _users.length ,
       )
 
     );
+  }
+  getData()async{
+      var _dio = Dio();
+      var response = await _dio.get("http://174.138.23.211:8282/api/apiSales");
+      var user = response.data;
+  setState(() {
+    _users = user;
+    
+  });
   }
 }

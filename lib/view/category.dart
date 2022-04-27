@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'constant.dart';
 
 class Categories extends StatefulWidget {
@@ -11,6 +13,13 @@ class Categories extends StatefulWidget {
 
 class _CategoriesState extends State<Categories> {
   bool search = true;
+
+  List _users = [];
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,52 +107,96 @@ class _CategoriesState extends State<Categories> {
 
   Widget categorieslist(BuildContext context){
     return Expanded(
-      child: Container(
-        padding: EdgeInsets.all(25),
+      child: ListView.builder(itemBuilder: (context, i){
+         var _user = _users[i];
+        return Container(
+        padding: EdgeInsets.symmetric(horizontal:25),
         child:SingleChildScrollView(
           child: Column(
             children: [
-              Container(
+              Slidable(
+                        
+                        endActionPane: ActionPane(
+                          motion: StretchMotion(),
+                          
+                          children: [
+                            SlidableAction(
+                              
+                              backgroundColor: Colors.transparent,
+                              
+                              icon: FluentIcons.delete_24_filled,
+                              foregroundColor: red,
+                              onPressed: (i)  {
+                                // AwesomeDialog(
+                                //   context: context,
+                                //   dialogType: DialogType.INFO_REVERSED,
+                                //   animType: AnimType.BOTTOMSLIDE,
+                                //   title: 'Delete',
+                                //   desc: 'data can not be returned',
+                                //   btnCancelOnPress: () {},
+                                //   btnCancelColor: Colors.blue.shade600,
+                                //   btnOkColor: Colors.red.shade600,
+                                //   btnOkOnPress: ()  {
+                                //     // print(_user["id"]);
+                                //     // bool response =
+                                //     //     await repository.deleteDataCategory(
+                                //     //         _user["id"].toString());
+                                //     // getData();
+                                //   },
+                                // )..show();
+                              },
+                            ),
+                            SlidableAction(
+                              backgroundColor: Colors.transparent,
+                              // label: 'Edit',
+                              icon: FluentIcons.edit_24_filled,
+                              foregroundColor: green,
+                              onPressed: (i) {
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => EditCategory(
+                                //               id: _user["id"],
+                                //             )));
+                              },
+                            ),
+                          ],
+                        ),
+                        child:Container(
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.all(10),
-                      height: 50,
+               
                       decoration: BoxDecoration(
                         color: boxColor,
                         borderRadius: BorderRadius.circular(10),
                         
                       ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(Icons.category,color:Color(0xffa9def9),size: 25),
-                        SizedBox(width: 10),
-                        Text("Elektronik",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold ))
-                      ],
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(right: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.red,
-                      ),
-                      child: TextButton(
-                        onPressed: (){},
-                        child: Text("delete",style: TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.normal),)
-                      )
-                    ),
-                  
+                    Icon(Icons.category_rounded,color:Color(0xffa9def9),size: 25),
+                    SizedBox(width: 10),
+                    Text("${_user["name"]}",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold ))
                   ],
                 )
-              ),
-              SizedBox(height: 6),
-              
+              )),
+              SizedBox(height: 6)
             ]
           )
         )
+      );
+      },
+      itemCount: _users.length,
       )
     ,);
+  }
+  getData()async{
+      var _dio = Dio();
+      var response = await _dio.get("http://174.138.23.211:8282/api/apiCategories");
+      var user = response.data;
+  setState(() {
+    _users = user;
+    
+  });
   }
 }

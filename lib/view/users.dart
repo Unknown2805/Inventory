@@ -1,7 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_app/view/constant.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'dashboard.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
 class Users extends StatefulWidget {
   const Users({ Key? key }) : super(key: key);
 
@@ -11,6 +13,13 @@ class Users extends StatefulWidget {
 
 class _UsersState extends State<Users> {
   bool search = true;
+
+  List _users = [];
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,467 +110,124 @@ class _UsersState extends State<Users> {
 
   Widget userslist(BuildContext context){
     return Expanded(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 25,vertical: 10),
+      child: ListView.builder(itemBuilder: (context, i){
+        var _user = _users[i];
+        return Container(
+        padding: EdgeInsets.symmetric(horizontal: 25),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              GestureDetector(
-                onTap: () => Navigator.of(context).popAndPushNamed('/customers'),
-                child: Container(
-                  child: Row(
+              Slidable(
+                        
+                        endActionPane: ActionPane(
+                          motion: StretchMotion(),
                           
-                    children: [
-                        Container(
-                        alignment: Alignment.center,
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(color: primarycolor,width: 2)
-                        ),
-                        child: Icon(FluentIcons.person_20_regular,color: Colors.white,size: 35)),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 150,
-                          height: 50,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:[
-                                Text("Master",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),
-                                Text("Master24434@gmail.com",style: TextStyle(color: Colors.white,fontSize: 12))
-                              ]
+                          children: [
+                            SlidableAction(
+                              
+                              backgroundColor: Colors.transparent,
+                              
+                              icon: FluentIcons.delete_24_filled,
+                              foregroundColor: red,
+                              onPressed: (i)  {
+                                // AwesomeDialog(
+                                //   context: context,
+                                //   dialogType: DialogType.INFO_REVERSED,
+                                //   animType: AnimType.BOTTOMSLIDE,
+                                //   title: 'Delete',
+                                //   desc: 'data can not be returned',
+                                //   btnCancelOnPress: () {},
+                                //   btnCancelColor: Colors.blue.shade600,
+                                //   btnOkColor: Colors.red.shade600,
+                                //   btnOkOnPress: ()  {
+                                //     // print(_user["id"]);
+                                //     // bool response =
+                                //     //     await repository.deleteDataCategory(
+                                //     //         _user["id"].toString());
+                                //     // getData();
+                                //   },
+                                // )..show();
+                              },
                             ),
-                          )
+                            SlidableAction(
+                              backgroundColor: Colors.transparent,
+                              // label: 'Edit',
+                              icon: FluentIcons.edit_24_filled,
+                              foregroundColor: green,
+                              onPressed: (i) {
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => EditCategory(
+                                //               id: _user["id"],
+                                //             )));
+                              },
+                            ),
+                          ],
                         ),
-                        Container(
-                          width: 105,
-                          height: 50,
-                          alignment: Alignment.center,
-                          child: Row(
+                        child:Container(
+                child: Row(
+                        
+                  children: [
+                      Container(
+                      alignment: Alignment.center,
+                      width: 45,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        border: Border.all(color: primarycolor,width: 2)
+                      ),
+                      child: Icon(FluentIcons.person_20_regular,color: Colors.white,size: 35)),
+                      SizedBox(width: 10),
+                      Container(
+                        width: 150,
+                        height: 50,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Master",style: TextStyle(color: primarycolor,fontSize: 18,fontWeight: FontWeight.bold)),
-                            
-                            ],
+                            children:[
+                              Text("${_user["name"]}",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),
+                              Text("${_user["email"]}",style: TextStyle(color: Colors.white,fontSize: 12))
+                            ]
                           ),
-                        ),
-                      ]
-                  
-                  )
-                ),
-              ),
-            SizedBox(height: 10),
-
-            GestureDetector(
-                onTap: () => Navigator.of(context).popAndPushNamed('/customers'),
-                child: Container(
-                  child: Row(
+                        )
+                      ),
+                      Container(
+                        width: 105,
+                        height: 50,
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("${_user["role"]}",style: TextStyle(color: primarycolor,fontSize: 18,fontWeight: FontWeight.bold)),
                           
-                    children: [
-                        Container(
-                        alignment: Alignment.center,
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(color: primarycolor,width: 2)
+                          ],
                         ),
-                        child: Icon(FluentIcons.person_20_regular,color: Colors.white,size: 35)),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 150,
-                          height: 50,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:[
-                                Text("Master",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),
-                                Text("Master24434@gmail.com",style: TextStyle(color: Colors.white,fontSize: 12))
-                              ]
-                            ),
-                          )
-                        ),
-                        Container(
-                          width: 105,
-                          height: 50,
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Master",style: TextStyle(color: primarycolor,fontSize: 18,fontWeight: FontWeight.bold)),
-                            
-                            ],
-                          ),
-                        ),
-                      ]
-                  
-                  )
-                ),
-              ),
-            SizedBox(height: 10),
-
-            GestureDetector(
-                onTap: () => Navigator.of(context).popAndPushNamed('/customers'),
-                child: Container(
-                  child: Row(
-                          
-                    children: [
-                        Container(
-                        alignment: Alignment.center,
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(color: primarycolor,width: 2)
-                        ),
-                        child: Icon(FluentIcons.person_20_regular,color: Colors.white,size: 35)),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 150,
-                          height: 50,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:[
-                                Text("Master",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),
-                                Text("Master24434@gmail.com",style: TextStyle(color: Colors.white,fontSize: 12))
-                              ]
-                            ),
-                          )
-                        ),
-                        Container(
-                          width: 105,
-                          height: 50,
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Master",style: TextStyle(color: primarycolor,fontSize: 18,fontWeight: FontWeight.bold)),
-                            
-                            ],
-                          ),
-                        ),
-                      ]
-                  
-                  )
-                ),
-              ),
-            SizedBox(height: 10),
-
-            GestureDetector(
-                onTap: () => Navigator.of(context).popAndPushNamed('/customers'),
-                child: Container(
-                  child: Row(
-                          
-                    children: [
-                        Container(
-                        alignment: Alignment.center,
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(color: primarycolor,width: 2)
-                        ),
-                        child: Icon(FluentIcons.person_20_regular,color: Colors.white,size: 35)),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 150,
-                          height: 50,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:[
-                                Text("Master",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),
-                                Text("Master24434@gmail.com",style: TextStyle(color: Colors.white,fontSize: 12))
-                              ]
-                            ),
-                          )
-                        ),
-                        Container(
-                          width: 105,
-                          height: 50,
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Master",style: TextStyle(color: primarycolor,fontSize: 18,fontWeight: FontWeight.bold)),
-                            
-                            ],
-                          ),
-                        ),
-                      ]
-                  
-                  )
-                ),
-              ),
-            SizedBox(height: 10),
-
-            GestureDetector(
-                onTap: () => Navigator.of(context).popAndPushNamed('/customers'),
-                child: Container(
-                  child: Row(
-                          
-                    children: [
-                        Container(
-                        alignment: Alignment.center,
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(color: primarycolor,width: 2)
-                        ),
-                        child: Icon(FluentIcons.person_20_regular,color: Colors.white,size: 35)),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 150,
-                          height: 50,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:[
-                                Text("Master",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),
-                                Text("Master24434@gmail.com",style: TextStyle(color: Colors.white,fontSize: 12))
-                              ]
-                            ),
-                          )
-                        ),
-                        Container(
-                          width: 105,
-                          height: 50,
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Master",style: TextStyle(color: primarycolor,fontSize: 18,fontWeight: FontWeight.bold)),
-                            
-                            ],
-                          ),
-                        ),
-                      ]
-                  
-                  )
-                ),
-              ),
-            SizedBox(height: 10),
-
-            GestureDetector(
-                onTap: () => Navigator.of(context).popAndPushNamed('/customers'),
-                child: Container(
-                  child: Row(
-                          
-                    children: [
-                        Container(
-                        alignment: Alignment.center,
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(color: primarycolor,width: 2)
-                        ),
-                        child: Icon(FluentIcons.person_20_regular,color: Colors.white,size: 35)),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 150,
-                          height: 50,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:[
-                                Text("Master",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),
-                                Text("Master24434@gmail.com",style: TextStyle(color: Colors.white,fontSize: 12))
-                              ]
-                            ),
-                          )
-                        ),
-                        Container(
-                          width: 105,
-                          height: 50,
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Master",style: TextStyle(color: primarycolor,fontSize: 18,fontWeight: FontWeight.bold)),
-                            
-                            ],
-                          ),
-                        ),
-                      ]
-                  
-                  )
-                ),
-              ),
-            SizedBox(height: 10),
-
-            GestureDetector(
-                onTap: () => Navigator.of(context).popAndPushNamed('/customers'),
-                child: Container(
-                  child: Row(
-                          
-                    children: [
-                        Container(
-                        alignment: Alignment.center,
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(color: primarycolor,width: 2)
-                        ),
-                        child: Icon(FluentIcons.person_20_regular,color: Colors.white,size: 35)),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 150,
-                          height: 50,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:[
-                                Text("Master",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),
-                                Text("Master24434@gmail.com",style: TextStyle(color: Colors.white,fontSize: 12))
-                              ]
-                            ),
-                          )
-                        ),
-                        Container(
-                          width: 105,
-                          height: 50,
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Master",style: TextStyle(color: primarycolor,fontSize: 18,fontWeight: FontWeight.bold)),
-                            
-                            ],
-                          ),
-                        ),
-                      ]
-                  
-                  )
-                ),
-              ),
-            SizedBox(height: 10),
-
-            GestureDetector(
-                onTap: () => Navigator.of(context).popAndPushNamed('/customers'),
-                child: Container(
-                  child: Row(
-                          
-                    children: [
-                        Container(
-                        alignment: Alignment.center,
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(color: primarycolor,width: 2)
-                        ),
-                        child: Icon(FluentIcons.person_20_regular,color: Colors.white,size: 35)),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 150,
-                          height: 50,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:[
-                                Text("Master",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),
-                                Text("Master24434@gmail.com",style: TextStyle(color: Colors.white,fontSize: 12))
-                              ]
-                            ),
-                          )
-                        ),
-                        Container(
-                          width: 105,
-                          height: 50,
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Master",style: TextStyle(color: primarycolor,fontSize: 18,fontWeight: FontWeight.bold)),
-                            
-                            ],
-                          ),
-                        ),
-                      ]
-                  
-                  )
-                ),
-              ),
-            SizedBox(height: 10),
-
-            GestureDetector(
-                onTap: () => Navigator.of(context).popAndPushNamed('/customers'),
-                child: Container(
-                  child: Row(
-                          
-                    children: [
-                        Container(
-                        alignment: Alignment.center,
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(color: primarycolor,width: 2)
-                        ),
-                        child: Icon(FluentIcons.person_20_regular,color: Colors.white,size: 35)),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 150,
-                          height: 50,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:[
-                                Text("Master",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),
-                                Text("Master24434@gmail.com",style: TextStyle(color: Colors.white,fontSize: 12))
-                              ]
-                            ),
-                          )
-                        ),
-                        Container(
-                          width: 105,
-                          height: 50,
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Master",style: TextStyle(color: primarycolor,fontSize: 18,fontWeight: FontWeight.bold)),
-                            
-                            ],
-                          ),
-                        ),
-                      ]
-                  
-                  )
-                ),
-              ),
-            SizedBox(height: 10),
-            
-            
+                      ),
+                    ]
+                
+                )
+              ),),
+  
             ]
           ),
         ),
-      ),
+      );
+      },
+      itemCount: _users.length,
+      )
     );
+  }
+  getData()async{
+      var _dio = Dio();
+      var response = await _dio.get("http://174.138.23.211:8282/api/apiUsers");
+      var user = response.data;
+  setState(() {
+    _users = user;
+    
+  });
   }
 }

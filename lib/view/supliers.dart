@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'constant.dart';
@@ -15,6 +16,12 @@ class _SuppliersState extends State<Suppliers> {
   bool search = true;
   bool heightBox = true;
 
+  List _users = [];
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -139,7 +146,9 @@ class _SuppliersState extends State<Suppliers> {
   Widget suplierslist(BuildContext context){
 
     return Expanded(
-      child: Container(
+      child: ListView.builder(itemBuilder: (context, i){
+        var _user = _users[i];
+        return Container(
    
         padding: EdgeInsets.symmetric(horizontal: 25,vertical: 10),
         child: SingleChildScrollView(
@@ -148,7 +157,7 @@ class _SuppliersState extends State<Suppliers> {
             children: [
 
               Container(
-                height: heightBox ? 50 : 170,
+                height: heightBox ? 50 : 200,
                 decoration: BoxDecoration(
                         color: boxColor.withOpacity(0.6),
                         borderRadius: BorderRadius.circular(10),
@@ -222,7 +231,7 @@ class _SuppliersState extends State<Suppliers> {
                       children: [
                          Icon(FluentIcons.data_histogram_24_filled,color: primarycolor,size: 25),
                         SizedBox(width: 10),
-                        Text("Supplier 1",style: TextStyle(color: white,fontSize: 16,fontWeight: FontWeight.bold ))
+                        Text("${_user["nama"]}",style: TextStyle(color: white,fontSize: 16,fontWeight: FontWeight.bold ))
                       ],
                     ),             
                   ],
@@ -267,7 +276,7 @@ class _SuppliersState extends State<Suppliers> {
         
                       Container(
                         padding:EdgeInsets.only(left:10),
-                        child: const Text("Supplier 1", style: TextStyle(color: primarycolor,fontSize: 16,fontWeight: FontWeight.bold))
+                        child: Text("${_user["nama"]}", style: TextStyle(color: primarycolor,fontSize: 16,fontWeight: FontWeight.bold))
                       ),
                       SizedBox(height: 10,),
                       SingleChildScrollView(
@@ -283,7 +292,7 @@ class _SuppliersState extends State<Suppliers> {
                                   width: 35,
                                   child: Icon(FluentIcons.location_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("Jl.Tebet no.12",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["alamat"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -296,7 +305,20 @@ class _SuppliersState extends State<Suppliers> {
                                   width: 35,
                                   child: Icon(FluentIcons.mail_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("BSD1@intek.com",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["email"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                  width: 35,
+                                  child: Icon(FluentIcons.call_24_filled,color: primarycolor)),
+                                  SizedBox(width:5),
+                                  Text("${_user["telepon"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -309,7 +331,7 @@ class _SuppliersState extends State<Suppliers> {
                                   width: 35,
                                   child: Icon(FluentIcons.person_accounts_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("059591211",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["npwp"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -322,7 +344,7 @@ class _SuppliersState extends State<Suppliers> {
                                   width: 35,
                                   child: Icon(FluentIcons.contact_card_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("059129519",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["no_ktp"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -335,10 +357,14 @@ class _SuppliersState extends State<Suppliers> {
                   ],)
                 ),),
               ),
-              SizedBox(height: 15),     
+              SizedBox(height: 5),     
             ],
           ) 
         )
+      );
+
+      },
+      itemCount: _users.length
       )
 
     );
@@ -346,7 +372,13 @@ class _SuppliersState extends State<Suppliers> {
       
       
   }
-
- 
-  
+   getData()async{
+      var _dio = Dio();
+      var response = await _dio.get("http://174.138.23.211:8282/api/apiSuppliers");
+      var user = response.data;
+  setState(() {
+    _users = user;
+    
+  });
+  }
 }

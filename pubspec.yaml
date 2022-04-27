@@ -38,6 +38,7 @@ dependencies:
   fluentui_system_icons: ^1.1.165
   image_picker: ^0.8.5
   flutter_slidable: ^1.2.0
+  dio: ^4.0.6
 
 dev_dependencies:
   flutter_test:

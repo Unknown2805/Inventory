@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -15,6 +16,13 @@ class ProductsOut extends StatefulWidget {
 class _ProductsOutState extends State<ProductsOut> {
   bool search = true;
   bool heightBox = true;
+
+  List _users = [];
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,8 +147,9 @@ class _ProductsOutState extends State<ProductsOut> {
 
   Widget productsoutlist(BuildContext context){
     return Expanded(
-      child: Container(
-   
+      child: ListView.builder(itemBuilder: (context, i){
+        var _user = _users[i];
+        return Container(
         padding: EdgeInsets.symmetric(horizontal: 25,vertical: 10),
         child: SingleChildScrollView(
           child:Column(
@@ -277,10 +286,10 @@ class _ProductsOutState extends State<ProductsOut> {
                       children: [
                          Icon(FluentIcons.arrow_circle_up_24_regular,color: primarycolor,size: 25),
                         SizedBox(width: 10),
-                        Text("Sprite",style: TextStyle(color: white,fontSize: 16,fontWeight: FontWeight.bold ))
+                        Text("${_user["product_id"]}",style: TextStyle(color: white,fontSize: 16,fontWeight: FontWeight.bold ))
                       ],
                     ),   
-                    Text("belum di proses",style: TextStyle(color: white,fontSize: 16,fontWeight: FontWeight.w100,fontStyle: FontStyle.italic )),
+                    Text("${_user["status"]}",style: TextStyle(color: white,fontSize: 16,fontWeight: FontWeight.w100,fontStyle: FontStyle.italic )),
                     
                   ],
                 )
@@ -299,7 +308,7 @@ class _ProductsOutState extends State<ProductsOut> {
                                   width: 35,
                                   child: Icon(FluentIcons.people_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("Customer 1",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["customer_id"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -312,7 +321,7 @@ class _ProductsOutState extends State<ProductsOut> {
                                   width: 35,
                                   child: Icon(FluentIcons.calendar_month_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("30-02-2021",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["tanggal"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -325,7 +334,7 @@ class _ProductsOutState extends State<ProductsOut> {
                                   width: 35,
                                   child: Icon(FluentIcons.cube_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
-                                  Text("247",style: TextStyle(color: Colors.white,fontSize: 14)),
+                                  Text("${_user["qty"]}",style: TextStyle(color: Colors.white,fontSize: 14)),
                                 ],
                               ),
                             ),
@@ -340,8 +349,20 @@ class _ProductsOutState extends State<ProductsOut> {
             ],
           ) 
         )
+      );
+      },
+      itemCount: _users.length,
       )
 
     );
+  }
+  getData()async{
+      var _dio = Dio();
+      var response = await _dio.get("http://174.138.23.211:8282/api/apiCustomers");
+      var user = response.data;
+  setState(() {
+    _users = user;
+    
+  });
   }
 }
