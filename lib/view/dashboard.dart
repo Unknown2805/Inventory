@@ -33,7 +33,7 @@ floatingActionButton: FloatingActionButton(
           onPressed: () {
             
           },
-          child: Icon(Icons.qr_code_rounded,size: 40),
+          child: Icon(Icons.qr_code_rounded,size: 30),
           backgroundColor: primarycolor,
           
         ),
@@ -44,14 +44,20 @@ floatingActionButton: FloatingActionButton(
       body: Stack(
         children:[
           SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  dashboardheader(context),
-                  menu(context),
-                      
-              ],),
+            child: NotificationListener<OverscrollIndicatorNotification>(
+              onNotification: (overScroll) {
+                overScroll.disallowGlow();
+                return true;
+              },
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    dashboardheader(context),
+                    menu(context),
+                        
+                ],),
+              ),
             ),
           )
         ]
