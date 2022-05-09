@@ -147,7 +147,7 @@ class _ProductsOutState extends State<ProductsOut> {
 
   Widget productsoutlist(BuildContext context){
     return Expanded(
-      child: ListView.builder(itemBuilder: (context, i){
+      child: _users.length == 0 ? LinearProgressIndicator(color: white) : ListView.builder(itemBuilder: (context, i){
         var _user = _users[i];
         return Container(
         padding: EdgeInsets.symmetric(horizontal: 25,vertical: 10),

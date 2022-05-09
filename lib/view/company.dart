@@ -144,7 +144,7 @@ class  CompanyState extends State <Company> {
 
   Widget companieslist(BuildContext context){
     return Expanded(
-      child: ListView.builder(itemBuilder: (context, i){
+      child: _users.length == 0 ? LinearProgressIndicator(color: white) : _users.length == 0 ? LinearProgressIndicator(color: white) : ListView.builder(itemBuilder: (context, i){
       var _user = _users[i];
         return Container(
    
