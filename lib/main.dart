@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:inventory_app/model/add_category.dart';
+import 'package:inventory_app/model/add_customers.dart';
+import 'package:inventory_app/view/category.dart';
+import 'package:inventory_app/view/constant.dart';
 import 'package:inventory_app/view/customers.dart';
 import 'package:inventory_app/view/users.dart';
 import 'view/dashboard.dart';
 import 'package:flutter/services.dart';
 
 void main() {
+     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+          systemNavigationBarColor: background,
+          systemNavigationBarIconBrightness: Brightness.light));
     WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(const MyApp()));
@@ -23,6 +30,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/users': (context) => Users(),
         '/customers' : (context) => Customers(),
+        '/add-category' : (context) => AddCategory(),
+        '/add-customers' : (context) => AddCustomers(),
       },
       home: const Dashboard(),
     );
