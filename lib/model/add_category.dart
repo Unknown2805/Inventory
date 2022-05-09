@@ -7,8 +7,6 @@ import '../view/category.dart';
 import '';
 
 class AddCategory extends StatefulWidget {
-
-
   @override
   _AddCategoryState createState() => _AddCategoryState();
 }
@@ -28,25 +26,23 @@ class _AddCategoryState extends State<AddCategory> {
           children: [
             TextField(
               controller: _nameController,
-              decoration: InputDecoration(hintText: 'Name'
-              ),
+              decoration: InputDecoration(hintText: 'Name'),
             ),
-             
-            ElevatedButton(onPressed: () async {
-              bool response = await repository.postDataCategory(_nameController.text, );
+            ElevatedButton(
+                onPressed: () async {
+                  bool response = await repository.postDataCategory(
+                    _nameController.text,
+                  );
 
-              
-                Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Categories()),
-              );
-              
-            }, child: Text('Submit'))
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Categories()),
+                  );
+                },
+                child: Text('Submit'))
           ],
         ),
       ),
     );
   }
-
-  
 }
