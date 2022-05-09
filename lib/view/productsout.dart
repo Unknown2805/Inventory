@@ -146,7 +146,7 @@ class _ProductsOutState extends State<ProductsOut> {
   }
 
   Widget productsoutlist(BuildContext context){
-    return Expanded(
+    return _users.length == 0 ? RefreshProgressIndicator(color: primarycolor ,backgroundColor: background,) : Expanded(
       child: ListView.builder(itemBuilder: (context, i){
         var _user = _users[i];
         return Container(
@@ -358,7 +358,7 @@ class _ProductsOutState extends State<ProductsOut> {
   }
   getData()async{
       var _dio = Dio();
-      var response = await _dio.get("http://174.138.23.211:8282/api/apiCustomers");
+      var response = await _dio.get("http://174.138.23.211:8282/api/apiProductsOut");
       var user = response.data;
   setState(() {
     _users = user;

@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:flutter/rendering.dart';
 import './constant.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import './constant.dart';
 
 class Sales extends StatefulWidget {
   const Sales({Key? key}) : super(key: key);
@@ -185,7 +185,7 @@ class _SalesState extends State<Sales> {
   }
 
   Widget saleslist(BuildContext context) {
-    return Expanded(
+    return _users.length == 0 ? RefreshProgressIndicator(color: primarycolor ,backgroundColor: background,) : Expanded(
         child: ListView.builder(
       itemBuilder: (context, i) {
         var _user = _users[i];

@@ -11,6 +11,7 @@ import './customers.dart';
 import './category.dart';
 import './sales.dart';
 import './productsout.dart';
+import './sken.dart';
 
  class Dashboard extends StatefulWidget {
    const Dashboard({ Key? key }) : super(key: key);
@@ -31,7 +32,10 @@ floatingActionButton: FloatingActionButton(
           elevation: 50,
           autofocus: true,
           onPressed: () {
-            
+             Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>ScanPage()),
+                        );
           },
           child: Icon(Icons.qr_code_rounded,size: 30),
           backgroundColor: primarycolor,

@@ -109,7 +109,7 @@ class _UsersState extends State<Users> {
 
 
   Widget userslist(BuildContext context){
-    return Expanded(
+    return _users.length == 0 ? RefreshProgressIndicator(color: primarycolor ,backgroundColor: background,) : Expanded(
       child: ListView.builder(itemBuilder: (context, i){
         var _user = _users[i];
         return Container(

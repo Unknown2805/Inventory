@@ -145,7 +145,7 @@ class _SuppliersState extends State<Suppliers> {
 
   Widget suplierslist(BuildContext context){
 
-    return Expanded(
+    return _users.length == 0 ? RefreshProgressIndicator(color: primarycolor ,backgroundColor: background,) : Expanded(
       child: ListView.builder(itemBuilder: (context, i){
         var _user = _users[i];
         return Container(

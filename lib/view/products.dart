@@ -50,7 +50,7 @@ class _ProductsState extends State<Products> {
                    
                     IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(FluentIcons.arrow_reply_24_filled,color: Colors.white)),
     
-                    Text("Products Out",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold)),
+                    Text("Products",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold)),
 
 
                     
