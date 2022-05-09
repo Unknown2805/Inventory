@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 
 class GeneratePage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => GeneratePageState();
+  State<GeneratePage> createState() => GeneratePageState();
 }
 
 class GeneratePageState extends State<GeneratePage> {

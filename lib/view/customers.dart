@@ -159,7 +159,7 @@ class _CustomersState extends State<Customers> {
 
   Widget customerslist(BuildContext context) {
     return Expanded(
-        child: _users.length == 0 ? LinearProgressIndicator(color: white) : ListView.builder(
+        child: _users.length == 0 ? CircularProgressIndicator(color: white) : ListView.builder(
       itemBuilder: (context, i) {
         var _user = _users[i];
         return Container(

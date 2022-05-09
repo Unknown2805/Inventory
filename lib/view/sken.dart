@@ -3,9 +3,11 @@ import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_app/view/constant.dart';
 import 'package:inventory_app/helper/apihelper.dart';
+
 import './dashboard.dart';
 
 class ScanPage extends StatefulWidget {
+  
   @override
   _ScanPageState createState() => _ScanPageState();
 }

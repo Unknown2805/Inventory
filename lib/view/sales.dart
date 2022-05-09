@@ -171,7 +171,7 @@ class _SalesState extends State<Sales> {
   Widget saleslist(BuildContext context){
     
     return Expanded(
-      child: _users.length == 0 ? LinearProgressIndicator(color: white) : ListView.builder(itemBuilder: (context , i){
+      child: _users.length == 0 ? CircularProgressIndicator(color: white) : ListView.builder(itemBuilder: (context , i){
         var _user = _users[i];
         return Container(
    
