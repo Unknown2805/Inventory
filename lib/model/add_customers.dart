@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:inventory_app/model/repo-category.dart';
+import 'package:inventory_app/view/customers.dart';
 
 import '../view/category.dart';
 import '';
@@ -21,7 +22,7 @@ class _AddCustomersState extends State<AddCustomers> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Add blog'),
+        title: Text('TAMBAH ktl'),
       ),
       body: Container(
         child: Column(
@@ -38,7 +39,7 @@ class _AddCustomersState extends State<AddCustomers> {
               
                 Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Categories()),
+                MaterialPageRoute(builder: (context) => Customers()),
               );
               
             }, child: Text('Submit'))
