@@ -26,8 +26,7 @@ class _CustomersState extends State<Customers> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: background,
-
-         floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton(
           onPressed: () =>
               Navigator.of(context).popAndPushNamed('/add-customers'),
           tooltip: 'Increment',
@@ -38,7 +37,6 @@ class _CustomersState extends State<Customers> {
           ),
           backgroundColor: primarycolor,
         ),
-
         body: Stack(children: [
           Column(
             children: [
