@@ -35,7 +35,10 @@ class MyApp extends StatelessWidget {
         '/add-category': (context) => AddCategory(),
         '/add-customers': (context) => AddCustomers(),
         '/add-sales': (context) => AddSales(),
-        
+
+        //
+        '/category': (context) => Categories(),
+        '/customers': (context) => Customers(),
       },
       home: const Dashboard(),
     );

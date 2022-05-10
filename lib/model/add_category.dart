@@ -26,7 +26,8 @@ class _AddCategoryState extends State<AddCategory> {
           children: [
             TextField(
               controller: _nameController,
-              decoration: InputDecoration(hintText: 'Name'),
+              decoration: InputDecoration(
+                labelText: 'Input data name'),
             ),
             ElevatedButton(
                 onPressed: () async {
@@ -34,10 +35,10 @@ class _AddCategoryState extends State<AddCategory> {
                     _nameController.text,
                   );
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Categories()),
-                  );
+                  if(response) {
+                    Navigator.of(context).popAndPushNamed('/Categories');
+                  }else
+                  print('Post data gagal');
                 },
                 child: Text('Submit'))
           ],

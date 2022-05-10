@@ -7,44 +7,42 @@ import 'package:inventory_app/helper/apihelper.dart';
 import './dashboard.dart';
 
 class ScanPage extends StatefulWidget {
-  
   @override
   _ScanPageState createState() => _ScanPageState();
 }
 
 class _ScanPageState extends State<ScanPage> {
   String qrCodeResult = "Barcode Scanner";
-  late String name, description, images;
-  late int qty, price;
+  String? name, description, images;
+  int? qty, price;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 40,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: new IconButton(
-            icon: new Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Dashboard()),
-              );
-            },
-          ),
-          
-          actions: [
-            IconButton(
-              onPressed: null,
-              icon: Image.asset(
-                "assets/klorofill.png",
-              ),
-              iconSize: 110,
-            )
-          ],
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Dashboard()),
+            );
+          },
         ),
-        extendBodyBehindAppBar: true,
+        actions: [
+          IconButton(
+            onPressed: null,
+            icon: Image.asset(
+              "assets/klorofill.png",
+            ),
+            iconSize: 110,
+          )
+        ],
+      ),
+      extendBodyBehindAppBar: true,
       backgroundColor: Color(0xff122333),
       body: Stack(
         children: [
@@ -54,7 +52,6 @@ class _ScanPageState extends State<ScanPage> {
               children: [
                 image(),
                 isi(context),
-
               ],
             ),
           ),
@@ -72,7 +69,7 @@ class _ScanPageState extends State<ScanPage> {
           color: Color(0xff192a3c),
           image: DecorationImage(
             image: (images != null)
-                ? NetworkImage(images)
+                ? NetworkImage(images!)
                 : AssetImage('') as ImageProvider,
             fit: BoxFit.fill,
           ),
@@ -123,7 +120,7 @@ class _ScanPageState extends State<ScanPage> {
               height: 70,
               width: 250,
               child: Text(
-                (name == null) ? "Item Name" : name,
+                (name == null) ? "Item Name" : name!,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
@@ -174,7 +171,7 @@ class _ScanPageState extends State<ScanPage> {
                   Text(
                     (description == null)
                         ? "Detail item akan tertera pada bagian ini disarankan sedetail mungkin pada item yang di input tentunya"
-                        : description,
+                        : description!,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,
@@ -283,4 +280,3 @@ class _ScanPageState extends State<ScanPage> {
     );
   }
 }
-

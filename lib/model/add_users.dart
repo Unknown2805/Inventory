@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:inventory_app/model/repo-category.dart';
 import 'package:inventory_app/view/customers.dart';
+import 'package:inventory_app/view/sales.dart';
 
 import '../view/category.dart';
 import '';
 
-class AddCustomers extends StatefulWidget {
+class AddUsers extends StatefulWidget {
   @override
-  _AddCustomersState createState() => _AddCustomersState();
+  _AddUsersState createState() => _AddUsersState();
 }
 
-class _AddCustomersState extends State<AddCustomers> {
+class _AddUsersState extends State<AddUsers> {
   Repository repository = Repository();
   final _namaController = TextEditingController();
   final _alamatController = TextEditingController();
@@ -47,20 +48,19 @@ class _AddCustomersState extends State<AddCustomers> {
             ),
             ElevatedButton(
                 onPressed: () async {
-                  bool response = await repository.postDataCustomers(
+                  bool response = await repository.postDataSales(
                     _namaController.text,
                     _alamatController.text,
                     _emailController.text,
                     _teleponController.text,
-                    
                   );
+                
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Customers()),
+                    MaterialPageRoute(builder: (context) => Sales()),
                   );
                 },
-                child: Text('Submit')),
-
+                child: Text('Submit'))
           ],
         ),
       ),
