@@ -7,7 +7,6 @@ import 'package:inventory_app/helper/apihelper.dart';
 import './dashboard.dart';
 
 class ScanPage extends StatefulWidget {
-  
   @override
   _ScanPageState createState() => _ScanPageState();
 }
@@ -22,29 +21,28 @@ class _ScanPageState extends State<ScanPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 40,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: new IconButton(
-            icon: new Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Dashboard()),
-              );
-            },
-          ),
-          
-          actions: [
-            IconButton(
-              onPressed: null,
-              icon: Image.asset(
-                "assets/klorofill.png",
-              ),
-              iconSize: 110,
-            )
-          ],
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Dashboard()),
+            );
+          },
         ),
-        extendBodyBehindAppBar: true,
+        actions: [
+          IconButton(
+            onPressed: null,
+            icon: Image.asset(
+              "assets/klorofill.png",
+            ),
+            iconSize: 110,
+          )
+        ],
+      ),
+      extendBodyBehindAppBar: true,
       backgroundColor: Color(0xff122333),
       body: Stack(
         children: [
@@ -54,7 +52,6 @@ class _ScanPageState extends State<ScanPage> {
               children: [
                 image(),
                 isi(context),
-
               ],
             ),
           ),
@@ -283,4 +280,3 @@ class _ScanPageState extends State<ScanPage> {
     );
   }
 }
-
