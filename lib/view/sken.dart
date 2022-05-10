@@ -14,8 +14,8 @@ class ScanPage extends StatefulWidget {
 
 class _ScanPageState extends State<ScanPage> {
   String qrCodeResult = "Barcode Scanner";
-  late String name, description, images;
-  late int qty, price;
+  String? name, description, images;
+  int? qty, price;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +72,7 @@ class _ScanPageState extends State<ScanPage> {
           color: Color(0xff192a3c),
           image: DecorationImage(
             image: (images != null)
-                ? NetworkImage(images)
+                ? NetworkImage(images!)
                 : AssetImage('') as ImageProvider,
             fit: BoxFit.fill,
           ),
@@ -123,7 +123,7 @@ class _ScanPageState extends State<ScanPage> {
               height: 70,
               width: 250,
               child: Text(
-                (name == null) ? "Item Name" : name,
+                (name == null) ? "Item Name" : name!,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
@@ -174,7 +174,7 @@ class _ScanPageState extends State<ScanPage> {
                   Text(
                     (description == null)
                         ? "Detail item akan tertera pada bagian ini disarankan sedetail mungkin pada item yang di input tentunya"
-                        : description,
+                        : description!,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,
