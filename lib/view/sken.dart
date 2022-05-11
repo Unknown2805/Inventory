@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:barcode_scan/barcode_scan.dart';
+// import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_app/view/constant.dart';
 import 'package:inventory_app/helper/apihelper.dart';
@@ -33,17 +33,19 @@ class _ScanPageState extends State<ScanPage> {
           },
         ),
         actions: [
-          IconButton(
-            onPressed: null,
-            icon: Image.asset(
-              "assets/klorofill.png",
-            ),
-            iconSize: 110,
-          )
+          // IconButton(
+          //   onPressed: null,
+          //   // icon: Image.asset(
+          //   //   "assets/example1.jpg",
+          //   // ),
+          //   iconSize: 110,
+          // )
         ],
       ),
       extendBodyBehindAppBar: true,
       backgroundColor: Color(0xff122333),
+
+      
       body: Stack(
         children: [
           Expanded(
@@ -216,64 +218,64 @@ class _ScanPageState extends State<ScanPage> {
               ],
             ),
             Padding(padding: EdgeInsets.only(top: 34)),
-            TextButton(
-              onPressed: () async {
-                // String codeScanning =
-                //     ( BarcodeScanner.scan(
-                //     )) as String; //barcode scnner
-                // setState(() {
-                //   qrCodeResult = codeScanning;
-                // });
-                try {
-                  String codeSanner =
-                      (await BarcodeScanner.scan()) as String; //barcode scnner
-                  var request = await ApiHelper.getData(codeSanner);
+            // TextButton(
+            //   onPressed: () async {
+            //     // String codeScanning =
+            //     //     ( BarcodeScanner.scan(
+            //     //     )) as String; //barcode scnner
+            //     // setState(() {
+            //     //   qrCodeResult = codeScanning;
+            //     // });
+            //     try {
+            //       String codeSanner =
+            //           (await BarcodeScanner.scan()) as String; //barcode scnner
+            //       var request = await ApiHelper.getData(codeSanner);
 
-                  if (request == null) {
-                    setState(() {
-                      qrCodeResult = "Data Not Found\n" + codeSanner;
-                    });
-                  } else {
-                    setState(() {
-                      qrCodeResult = request.toString() + "\n" + codeSanner;
-                      name = request["nama"];
-                      qty = request["qty"];
-                      price = request["harga"];
-                      description = request["description"];
-                      images = request["image"];
-                    });
-                    print(request["nama"]);
-                  }
+            //       if (request == null) {
+            //         setState(() {
+            //           qrCodeResult = "Data Not Found\n" + codeSanner;
+            //         });
+            //       } else {
+            //         setState(() {
+            //           qrCodeResult = request.toString() + "\n" + codeSanner;
+            //           name = request["nama"];
+            //           qty = request["qty"];
+            //           price = request["harga"];
+            //           description = request["description"];
+            //           images = request["image"];
+            //         });
+            //         print(request["nama"]);
+            //       }
 
-                  // String codeSanner =
-                  //     await BarcodeScanner.scan(); //barcode scnner
-                  // var request = await ApiHelper.getData(codeSanner);
-                  // setState(() {
-                  //   qrCodeResult = request.toString();
-                  // });
-                } catch (e) {
-                  setState(() {
-                    qrCodeResult = "Data Not Found";
-                  });
-                }
-              },
-              style: ButtonStyle(
-                  padding:
-                      MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10)),
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Color(0xff1e394e)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          side: BorderSide(color: Color(0xff2fac68))))),
-              child: Text(
-                "Open Scanner",
-                style: TextStyle(
-                    color: Color(0xff2fac68),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30),
-              ),
-            ),
+            //       // String codeSanner =
+            //       //     await BarcodeScanner.scan(); //barcode scnner
+            //       // var request = await ApiHelper.getData(codeSanner);
+            //       // setState(() {
+            //       //   qrCodeResult = request.toString();
+            //       // });
+            //     } catch (e) {
+            //       setState(() {
+            //         qrCodeResult = "Data Not Found";
+            //       });
+            //     }
+            //   },
+            //   style: ButtonStyle(
+            //       padding:
+            //           MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10)),
+            //       backgroundColor:
+            //           MaterialStateProperty.all<Color>(Color(0xff1e394e)),
+            //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            //           RoundedRectangleBorder(
+            //               borderRadius: BorderRadius.circular(20.0),
+            //               side: BorderSide(color: Color(0xff2fac68))))),
+            //   child: Text(
+            //     "Open Scanner",
+            //     style: TextStyle(
+            //         color: Color(0xff2fac68),
+            //         fontWeight: FontWeight.bold,
+            //         fontSize: 30),
+            //   ),
+            // ),
           ],
         ),
       ),

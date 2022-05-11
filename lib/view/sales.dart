@@ -1,6 +1,9 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:inventory_app/model/repo-category.dart';
+import 'package:inventory_app/view/dashboard.dart';
 import './constant.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import './constant.dart';
@@ -13,6 +16,12 @@ class Sales extends StatefulWidget {
 }
 
 class _SalesState extends State<Sales> {
+  Repository repository = Repository();
+  final _namaController = TextEditingController();
+  final _alamatController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _teleponController = TextEditingController();
+  
   bool search = true;
   bool heightBox = true;
 
@@ -29,9 +38,11 @@ class _SalesState extends State<Sales> {
         resizeToAvoidBottomInset: false,
         backgroundColor: background,
 
+        // tombol add data
         floatingActionButton: FloatingActionButton(
-          onPressed: () =>
-              Navigator.of(context).popAndPushNamed('/add-sales'),
+          onPressed: () {
+            openDialog();
+          },
           tooltip: 'Increment',
           child: const Icon(
             Icons.add,
@@ -40,6 +51,7 @@ class _SalesState extends State<Sales> {
           ),
           backgroundColor: primarycolor,
         ),
+        // Tutup tombol add data
 
         body: Stack(children: [
           Column(
@@ -49,6 +61,113 @@ class _SalesState extends State<Sales> {
             ],
           )
         ]));
+  }
+
+   Future openDialog() => showDialog(
+        context: context,
+        builder: (context) => Container(
+          child: AlertDialog(
+            backgroundColor: background,
+            title:
+                Text('Input data name', style: TextStyle(color: primarycolor)),
+            // ignore: avoid_unnecessary_containers
+            content: Container(
+              height: 200,
+              child: Column(
+                children: [
+                  TextField(
+                    autofocus: true,
+                    style: TextStyle(color: white),
+                    controller: _namaController,
+                    decoration: InputDecoration(
+                      hintText: 'Name',
+                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primarycolor),
+                      ),
+                    ),
+                  ),
+                  TextField(
+                    style: TextStyle(color: white),
+                    controller: _alamatController,
+                    decoration: InputDecoration(
+                      hintText: 'Alamat',
+                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primarycolor),
+                      ),
+                    ),
+                  ),
+                  TextField(
+                    style: TextStyle(color: white),
+                    keyboardType: TextInputType.emailAddress,
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primarycolor),
+                      ),
+                    ),
+                  ),
+                  TextField(
+                    style: TextStyle(color: white),
+                    keyboardType: TextInputType.number,
+                    controller: _teleponController,
+                    decoration: InputDecoration(
+                      hintText: 'telepon',
+                      hintStyle: TextStyle(
+                        color: white.withOpacity(0.5),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primarycolor),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            actions: [
+              TextButton(
+                child: Text(
+                  'CLOSE',
+                  style: TextStyle(color: primarycolor),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _namaController.clear();
+                      _alamatController.clear();
+                      _emailController.clear();
+                      _teleponController.clear();
+                  _alamatController.clear();
+                },
+              ),
+              TextButton(
+                  child: Text(
+                    'SUBMIT',
+                    style: TextStyle(color: primarycolor),
+                  ),
+                  onPressed: () async {
+                    bool response = await repository.postDataSales(
+                      _namaController.text,
+                      _alamatController.text,
+                      _emailController.text,
+                      _teleponController.text,
+                    );
+                    getData();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Sales()),
+                    );
+                  })
+            ],
+          ),
+        ),
+      );
+
+  void submit() {
+    Navigator.of(context).pop();
   }
 
   Widget salesheader(BuildContext context) {
@@ -64,9 +183,11 @@ class _SalesState extends State<Sales> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                         IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
+                           onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => Dashboard()),
+                        (Route<dynamic> route) => false);
+                  },
                             icon: const Icon(FluentIcons.arrow_reply_24_filled,
                                 color: Colors.white)),
                         Text("sales",
@@ -278,7 +399,16 @@ class _SalesState extends State<Sales> {
                                     width: 60,
                                     height: 60,
                                     child: TextButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                        AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.WARNING,
+                                          animType: AnimType.BOTTOMSLIDE,
+                                          title:  'Data will gone ',
+                                          btnCancelOnPress: () {},
+                                          btnOkOnPress: () {},
+                                        )..show();
+                                      },
                                         child: Icon(
                                             FluentIcons.delete_24_filled,
                                             size: 35,
@@ -289,7 +419,16 @@ class _SalesState extends State<Sales> {
                                     width: 60,
                                     height: 60,
                                     child: TextButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                        AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.INFO,
+                                          animType: AnimType.BOTTOMSLIDE,
+                                          title: 'Change your data in here',
+                                          btnCancelOnPress: () {},
+                                          btnOkOnPress: () {},
+                                        )..show();
+                                      },
                                         child: Icon(FluentIcons.edit_24_filled,
                                             size: 35, color: green))),
                               ),
