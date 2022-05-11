@@ -33,13 +33,13 @@ class _ScanPageState extends State<ScanPage> {
           },
         ),
         actions: [
-          // IconButton(
-          //   onPressed: null,
-          //   // icon: Image.asset(
-          //   //   "assets/example1.jpg",
-          //   // ),
-          //   iconSize: 110,
-          // )
+          IconButton(
+            onPressed: null,
+            icon: Image.asset(
+              "assets/klorofill.png",
+            ),
+            iconSize: 110,
+          )
         ],
       ),
       extendBodyBehindAppBar: true,
