@@ -247,7 +247,7 @@ class _ProductsInState extends State<ProductsIn> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Container(
+                                  SizedBox(
                                   width: 35,
                                   child: Icon(FluentIcons.cube_24_filled,color: primarycolor)),
                                   SizedBox(width:5),
@@ -261,7 +261,7 @@ class _ProductsInState extends State<ProductsIn> {
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                               width: 280, 
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,

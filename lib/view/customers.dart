@@ -1,4 +1,4 @@
-
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -47,6 +47,8 @@ class _CustomersState extends State<Customers> {
           ),
           backgroundColor: primarycolor,
         ),
+        // Tutup tombol add data
+
         body: Stack(children: [
           Column(
             children: [
@@ -123,6 +125,19 @@ class _CustomersState extends State<Customers> {
             ),
 
             actions: [
+              TextButton(
+                child: Text(
+                  'CLOSE',
+                  style: TextStyle(color: primarycolor),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _namaController.clear();
+                      _alamatController.clear();
+                      _emailController.clear();
+                      _teleponController.clear();
+                },
+              ),
               TextButton(
                   child: Text(
                     'SUBMIT',
@@ -290,23 +305,15 @@ class _CustomersState extends State<Customers> {
                                       icon: FluentIcons.delete_24_filled,
                                       foregroundColor: red,
                                       onPressed: (i) {
-                                        // AwesomeDialog(
-                                        //   context: context,
-                                        //   dialogType: DialogType.INFO_REVERSED,
-                                        //   animType: AnimType.BOTTOMSLIDE,
-                                        //   title: 'Delete',
-                                        //   desc: 'data can not be returned',
-                                        //   btnCancelOnPress: () {},
-                                        //   btnCancelColor: Colors.blue.shade600,
-                                        //   btnOkColor: Colors.red.shade600,
-                                        //   btnOkOnPress: ()  {
-                                        //     // print(_user["id"]);
-                                        //     // bool response =
-                                        //     //     await repository.deleteDataCategory(
-                                        //     //         _user["id"].toString());
-                                        //     // getData();
-                                        //   },
-                                        // )..show();
+                                        AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.WARNING,
+                                          animType: AnimType.BOTTOMSLIDE,
+                                          title: 'Warning',
+                                          desc: 'Data will gone ',
+                                          btnCancelOnPress: () {},
+                                          btnOkOnPress: () {},
+                                        )..show();
                                       },
                                     ),
                                     SlidableAction(
@@ -315,12 +322,15 @@ class _CustomersState extends State<Customers> {
                                       icon: FluentIcons.edit_24_filled,
                                       foregroundColor: green,
                                       onPressed: (i) {
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) => EditCategory(
-                                        //               id: _user["id"],
-                                        //             )));
+                                        AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.INFO,
+                                          animType: AnimType.BOTTOMSLIDE,
+                                          title: 'Edit',
+                                          desc: 'Change your data in here',
+                                          btnCancelOnPress: () {},
+                                          btnOkOnPress: () {},
+                                        )..show();
                                       },
                                     ),
                                   ],
