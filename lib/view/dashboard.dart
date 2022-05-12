@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:inventory_app/view/company.dart';
-import 'package:inventory_app/view/products.dart';
-import 'package:inventory_app/view/productsin.dart';
 import 'constant.dart';
 //page file
+import './company.dart';
+import './products.dart';
+import './productsin.dart';
 import './supliers.dart';
-import 'users.dart';
+import './users.dart';
 import './customers.dart';
 import './category.dart';
 import './sales.dart';
 import './productsout.dart';
-import './sken.dart';
+import './scan.dart';
 
  class Dashboard extends StatefulWidget {
    const Dashboard({ Key? key }) : super(key: key);
@@ -122,14 +122,11 @@ floatingActionButton: FloatingActionButton(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
                 Container(
-                  width: 150,
-                  height: 150,
+                  width: 155,
+                  height: 155,
                   decoration: BoxDecoration(
                     color: boxColor,
                     borderRadius: BorderRadius.circular(20),
-                    boxShadow: [BoxShadow(
-                      blurRadius: 2,
-                    )]
                   ),
 
                 child: TextButton(
@@ -149,7 +146,7 @@ floatingActionButton: FloatingActionButton(
                       children: [
                         Icon(FluentIcons.arrow_circle_down_24_regular,color:  Color(0xffa9def9),size: 30),
                         SizedBox(height: 5,),
-                        Text("120",style: TextStyle(color: Color(0xffa9def9),fontSize: 36,fontWeight: FontWeight.bold),),
+                        Text("120",style: TextStyle(color: white,fontSize: 36,fontWeight: FontWeight.bold),),
                         SizedBox(height: 5),
                         Text("PRODUCT IN",style: TextStyle(color: Color(0xffa9def9),fontSize: 14),)
                       ],
@@ -158,15 +155,12 @@ floatingActionButton: FloatingActionButton(
               ),
             SizedBox(width: 20),
                 Container(
-                        width: 150,
-                        height: 150,
+                        width: 155,
+                        height: 155,
                         decoration: BoxDecoration(
                           color: boxColor,
                           borderRadius: BorderRadius.circular(20),
-                          boxShadow: [BoxShadow(
-                            blurRadius: 2,
-                          )]
-                        ),
+                          ),
 
                       child: TextButton(
                         style: ButtonStyle(
@@ -185,7 +179,7 @@ floatingActionButton: FloatingActionButton(
                             children: [
                               Icon(FluentIcons.arrow_circle_up_24_regular,color:  Color(0xffa9def9),size: 30),
                               SizedBox(height: 5,),
-                              Text("120",style: TextStyle(color: Color(0xffa9def9),fontSize: 36,fontWeight: FontWeight.bold),),
+                              Text("120",style: TextStyle(color: white,fontSize: 36,fontWeight: FontWeight.bold),),
                               SizedBox(height: 5),
                               Text("PRODUCT OUT",style: TextStyle(color: Color(0xffa9def9),fontSize: 14,),)
                             ],
@@ -193,16 +187,14 @@ floatingActionButton: FloatingActionButton(
                         )),
                     ),                   
          ],),
-            SizedBox(height: 14),
+            SizedBox(height: 20),
                   Container(
                   padding: EdgeInsets.all(10),
                       height: 70,
                       decoration: BoxDecoration(
                         color: boxColor,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [BoxShadow(
-                          blurRadius: 2,
-                        )]
+                        
                       ),
 
                     child: TextButton(
@@ -230,7 +222,7 @@ floatingActionButton: FloatingActionButton(
                                 SizedBox(width: 20,),
                                 Container(
                                   width:60,
-                                  child: Text("120",style: TextStyle(color: Color(0xffa9def9),fontSize: 28,fontWeight: FontWeight.bold),)),
+                                  child: Text("120",style: TextStyle(color: white,fontSize: 28,fontWeight: FontWeight.bold),)),
                               ],
                             ),
                           
@@ -245,9 +237,7 @@ floatingActionButton: FloatingActionButton(
                       decoration: BoxDecoration(
                         color: boxColor,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [BoxShadow(
-                          blurRadius: 2,
-                        )]
+                        
                       ),
 
                     child: TextButton(
@@ -275,7 +265,7 @@ floatingActionButton: FloatingActionButton(
                                 SizedBox(width: 20,),
                                 Container(
                                   width:60,
-                                  child: Text("120",style: TextStyle(color: Color(0xffa9def9),fontSize: 28,fontWeight: FontWeight.bold),)),
+                                  child: Text("120",style: TextStyle(color: white,fontSize: 28,fontWeight: FontWeight.bold),)),
                               ],
                             ),
                           
@@ -290,9 +280,7 @@ floatingActionButton: FloatingActionButton(
                       decoration: BoxDecoration(
                         color: boxColor,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [BoxShadow(
-                          blurRadius: 2,
-                        )]
+                        
                       ),
 
                     child: TextButton(
@@ -321,7 +309,7 @@ floatingActionButton: FloatingActionButton(
 
                                 Container(
                                   width: 60,
-                                  child: Text("120",style: TextStyle(color: Color(0xffa9def9),fontSize: 28,fontWeight: FontWeight.bold),)),
+                                  child: Text("120",style: TextStyle(color: white,fontSize: 28,fontWeight: FontWeight.bold),)),
                               ],
                             ),
                           
@@ -336,9 +324,7 @@ floatingActionButton: FloatingActionButton(
                       decoration: BoxDecoration(
                         color: boxColor,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [BoxShadow(
-                          blurRadius: 2,
-                        )]
+                        
                       ),
 
                     child: TextButton(
@@ -366,7 +352,7 @@ floatingActionButton: FloatingActionButton(
                                 SizedBox(width: 20,),
                                 Container(
                                   width:60,
-                                  child: Text("120",style: TextStyle(color: Color(0xffa9def9),fontSize: 28,fontWeight: FontWeight.bold),)),
+                                  child: Text("120",style: TextStyle(color: white,fontSize: 28,fontWeight: FontWeight.bold),)),
                               ],
                             ),
                           
@@ -381,9 +367,7 @@ floatingActionButton: FloatingActionButton(
                       decoration: BoxDecoration(
                         color: boxColor,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [BoxShadow(
-                          blurRadius: 2,
-                        )]
+                        
                       ),
 
                     child: TextButton(
@@ -411,7 +395,7 @@ floatingActionButton: FloatingActionButton(
                                 SizedBox(width: 20,),
                                 Container(
                                   width:60,
-                                  child: Text("120",style: TextStyle(color: Color(0xffa9def9),fontSize: 28,fontWeight: FontWeight.bold),)),
+                                  child: Text("120",style: TextStyle(color: white,fontSize: 28,fontWeight: FontWeight.bold),)),
                               ],
                             ),
                           
@@ -426,9 +410,7 @@ floatingActionButton: FloatingActionButton(
                       decoration: BoxDecoration(
                         color: boxColor,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [BoxShadow(
-                          blurRadius: 2,
-                        )]
+                        
                       ),
 
                     child: TextButton(
@@ -456,7 +438,7 @@ floatingActionButton: FloatingActionButton(
                                 SizedBox(width: 20,),
                                 Container(
                                   width:60,
-                                  child: Text("120",style: TextStyle(color: Color(0xffa9def9),fontSize: 28,fontWeight: FontWeight.bold),)),
+                                  child: Text("120",style: TextStyle(color: white,fontSize: 28,fontWeight: FontWeight.bold),)),
                               ],
                             ),
                           
@@ -471,9 +453,7 @@ floatingActionButton: FloatingActionButton(
                       decoration: BoxDecoration(
                         color: boxColor,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [BoxShadow(
-                          blurRadius: 2,
-                        )]
+                        
                       ),
 
                     child: TextButton(
@@ -503,7 +483,7 @@ floatingActionButton: FloatingActionButton(
                                 SizedBox(width: 20,),
                                 Container(
                                   width:60,
-                                  child: Text("120",style: TextStyle(color: Color(0xffa9def9),fontSize: 28,fontWeight: FontWeight.bold),)),
+                                  child: Text("120",style: TextStyle(color: white,fontSize: 28,fontWeight: FontWeight.bold),)),
                               ],
                             ),
                           
