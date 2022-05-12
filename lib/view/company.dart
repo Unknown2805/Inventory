@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -14,7 +15,7 @@ class Company extends StatefulWidget {
 }
 
 class CompanyState extends State<Company> {
-   Repository repository = Repository();
+  Repository repository = Repository();
   final _nama_perusahaanController = TextEditingController();
   final _alamatController = TextEditingController();
   final _latController = TextEditingController();
@@ -22,6 +23,7 @@ class CompanyState extends State<Company> {
   final _emailController = TextEditingController();
   bool search = true;
   bool heightBox = true;
+  
   @override
   List _users = [];
   @override
@@ -146,10 +148,10 @@ class CompanyState extends State<Company> {
                 onPressed: () {
                   Navigator.of(context).pop();
                   _nama_perusahaanController.clear();
-                      _alamatController.clear();
-                      _latController.clear();
-                      _longController.clear();
-                      _emailController.clear();
+                  _alamatController.clear();
+                  _latController.clear();
+                  _longController.clear();
+                  _emailController.clear();
                 },
               ),
               TextButton(
@@ -160,10 +162,10 @@ class CompanyState extends State<Company> {
                 onPressed: () async {
                   bool response = await repository.postDataCompanies(
                     _nama_perusahaanController.text,
-                      _alamatController.text,
-                      _emailController.text,
-                      _latController.text,
-                      _longController.text,
+                    _alamatController.text,
+                    _latController.text,
+                    _longController.text,
+                    _emailController.text,
                   );
                   getData();
                   Navigator.push(
@@ -190,11 +192,12 @@ class CompanyState extends State<Company> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                         IconButton(
-                           onPressed: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => Dashboard()),
-                        (Route<dynamic> route) => false);
-                  },
+                            onPressed: () {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => Dashboard()),
+                                  (Route<dynamic> route) => false);
+                            },
                             icon: const Icon(FluentIcons.arrow_reply_24_filled,
                                 color: Colors.white)),
                         Text("Companies",
@@ -319,23 +322,15 @@ class CompanyState extends State<Company> {
                                       icon: FluentIcons.delete_24_filled,
                                       foregroundColor: red,
                                       onPressed: (i) {
-                                        // AwesomeDialog(
-                                        //   context: context,
-                                        //   dialogType: DialogType.INFO_REVERSED,
-                                        //   animType: AnimType.BOTTOMSLIDE,
-                                        //   title: 'Delete',
-                                        //   desc: 'data can not be returned',
-                                        //   btnCancelOnPress: () {},
-                                        //   btnCancelColor: Colors.blue.shade600,
-                                        //   btnOkColor: Colors.red.shade600,
-                                        //   btnOkOnPress: ()  {
-                                        //     // print(_user["id"]);
-                                        //     // bool response =
-                                        //     //     await repository.deleteDataCategory(
-                                        //     //         _user["id"].toString());
-                                        //     // getData();
-                                        //   },
-                                        // )..show();
+                                        AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.WARNING,
+                                          animType: AnimType.BOTTOMSLIDE,
+                                          title:
+                                              "data can't be returned if it's been deleted",
+                                          btnCancelOnPress: () {},
+                                          btnOkOnPress: () {},
+                                        )..show();
                                       },
                                     ),
                                     SlidableAction(
@@ -344,12 +339,14 @@ class CompanyState extends State<Company> {
                                       icon: FluentIcons.edit_24_filled,
                                       foregroundColor: green,
                                       onPressed: (i) {
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) => EditCategory(
-                                        //               id: _user["id"],
-                                        //             )));
+                                        AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.INFO,
+                                          animType: AnimType.BOTTOMSLIDE,
+                                          title: 'change data here!',
+                                          btnCancelOnPress: () {},
+                                          btnOkOnPress: () {},
+                                        )..show();
                                       },
                                     ),
                                   ],

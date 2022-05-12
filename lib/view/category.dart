@@ -17,7 +17,9 @@ class Categories extends StatefulWidget {
 class _CategoriesState extends State<Categories> {
   Repository repository = Repository();
   final _nameController = TextEditingController();
+
   bool search = true;
+  bool _validate = false;
 
   List _users = [];
   @override
@@ -71,11 +73,13 @@ class _CategoriesState extends State<Categories> {
               height: 80,
               child: Column(
                 children: [
+                  Text('Erorr showed'),
                   TextField(
                     autofocus: true,
                     style: TextStyle(color: white),
                     controller: _nameController,
                     decoration: InputDecoration(
+                      labelText: 'Enter the value',
                       hintText: 'Name',
                       hintStyle: TextStyle(color: white.withOpacity(0.5)),
                       enabledBorder: UnderlineInputBorder(

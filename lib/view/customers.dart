@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:inventory_app/model/repo-category.dart';
+import 'package:inventory_app/view/dashboard.dart';
 import './constant.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -19,8 +20,11 @@ class _CustomersState extends State<Customers> {
   final _alamatController = TextEditingController();
   final _emailController = TextEditingController();
   final _teleponController = TextEditingController();
+  
   bool search = true;
   bool heightBox = true;
+  bool _validate = false;
+
   @override
   List _users = [];
   @override
@@ -179,8 +183,10 @@ class _CustomersState extends State<Customers> {
                     children: [
                         IconButton(
                             onPressed: () {
-                              Navigator.pop(context);
-                            },
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => Dashboard()),
+                        (Route<dynamic> route) => false);
+                  },
                             icon: const Icon(FluentIcons.arrow_reply_24_filled,
                                 color: Colors.white)),
                         Text("Customers",

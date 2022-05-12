@@ -126,17 +126,15 @@ class Repository {
   // Tutup ProductOut
 
   // Companies
-  Future postDataCompanies(String nama_perusahaan, String alamat, String lat,
-      String long, String email) async {
+  Future postDataCompanies(String nama_perusahaan, String alamat, String lat, String long, String email) async {
     try {
       final response = await http.post(
-          Uri.parse('http://174.138.23.211:8282/api/apiCompanies'),
-          body: {
+          Uri.parse('http://174.138.23.211:8282/api/apiCompanies'), body: {
             "nama": nama_perusahaan,
             "alamat": alamat,
-            "email": email,
             "lat": lat,
             "long": long,
+            "email": email,
           });
 
       if (response.statusCode == 201) {
@@ -173,4 +171,24 @@ class Repository {
     }
   }
   // Tutup Suppliers
+
+  // Users
+    Future postDataUsers(String name, String email, String role,) async {
+    try {
+      final response = await http.post(Uri.parse('http://174.138.23.211:8282/api/apiUsers'), body: {
+        "name": name, 
+        "email" : email,
+        "role" : role,
+      });
+
+      if(response.statusCode == 201) {
+        return true;
+      } else { 
+        return false;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+  // Tutup Users
 }
