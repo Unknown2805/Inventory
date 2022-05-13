@@ -64,8 +64,10 @@ class _CustomersState extends State<Customers> {
         context: context,
         builder: (context) => Container(
           child: AlertDialog(
-          backgroundColor: background,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),side: BorderSide(color: primarycolor)),
+            backgroundColor: background,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(color: primarycolor)),
             title:
                 Text('Input data name', style: TextStyle(color: primarycolor)),
             // ignore: avoid_unnecessary_containers
@@ -80,7 +82,6 @@ class _CustomersState extends State<Customers> {
                       style: TextStyle(color: white),
                       controller: _namaController,
                       decoration: InputDecoration(
-                        
                         hintText: 'Name',
                         hintStyle: TextStyle(color: white.withOpacity(0.5)),
                         enabledBorder: UnderlineInputBorder(
@@ -138,10 +139,10 @@ class _CustomersState extends State<Customers> {
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
-                      _namaController.clear();
-                      _alamatController.clear();
-                      _emailController.clear();
-                      _teleponController.clear();
+                  _namaController.clear();
+                  _alamatController.clear();
+                  _emailController.clear();
+                  _teleponController.clear();
                 },
               ),
               TextButton(
@@ -150,38 +151,31 @@ class _CustomersState extends State<Customers> {
                     style: TextStyle(color: primarycolor),
                   ),
                   onPressed: () async {
-        
                     bool response = await repository.postDataCustomers(
                       _namaController.text,
                       _alamatController.text,
                       _emailController.text,
                       _teleponController.text,
                     );
-                  
+
                     getData();
-                     if (_namaController.text.isEmpty
-                    ){
+                    if (_namaController.text.isEmpty) {
                       print("isi dulu lah");
-                      
                     }
-                     if (_alamatController.text.isEmpty
-                    ){
+                    if (_alamatController.text.isEmpty) {
                       print("isi dulu lah");
-                    } 
-                     if (_emailController.text.isEmpty
-                    ){
+                    }
+                    if (_emailController.text.isEmpty) {
                       print("isi dulu lah");
-                    } 
-                     if (_teleponController.text.isEmpty
-                    ){
+                    }
+                    if (_teleponController.text.isEmpty) {
                       print("isi dulu lah");
-                    } else{
+                    } else {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Customers()),
-                        );
+                        context,
+                        MaterialPageRoute(builder: (context) => Customers()),
+                      );
                     }
-                    
                   })
             ],
           ),
@@ -191,6 +185,131 @@ class _CustomersState extends State<Customers> {
   void submit() {
     Navigator.of(context).pop();
   }
+
+  Future editDialog() => showDialog(
+        context: context,
+        builder: (context) => Container(
+          child: AlertDialog(
+            backgroundColor: background,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(color: primarycolor)),
+            title:
+                Text('Input data name', style: TextStyle(color: primarycolor)),
+            // ignore: avoid_unnecessary_containers
+            content: Container(
+              height: 200,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TextField(
+                      maxLength: 5,
+                      autofocus: true,
+                      style: TextStyle(color: white),
+                      controller: _namaController,
+                      decoration: InputDecoration(
+                        hintText: 'Name',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      style: TextStyle(color: white),
+                      controller: _alamatController,
+                      decoration: InputDecoration(
+                        hintText: 'Alamat',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        hintText: 'Email',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.number,
+                      controller: _teleponController,
+                      decoration: InputDecoration(
+                        hintText: 'telepon',
+                        hintStyle: TextStyle(
+                          color: white.withOpacity(0.5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            actions: [
+              TextButton(
+                child: Text(
+                  'CLOSE',
+                  style: TextStyle(color: primarycolor),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _namaController.clear();
+                  _alamatController.clear();
+                  _emailController.clear();
+                  _teleponController.clear();
+                },
+              ),
+              TextButton(
+                  child: Text(
+                    'SUBMIT',
+                    style: TextStyle(color: primarycolor),
+                  ),
+                  onPressed: () async {
+                    bool response = await repository.postDataCustomers(
+                      _namaController.text,
+                      _alamatController.text,
+                      _emailController.text,
+                      _teleponController.text,
+                    );
+
+                    getData();
+                    if (_namaController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_alamatController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_emailController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_teleponController.text.isEmpty) {
+                      print("isi dulu lah");
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Customers()),
+                      );
+                    }
+                  })
+            ],
+          ),
+        ),
+      );
+
+  
+
   Widget customersheader(BuildContext context) {
     return SafeArea(
       child: Column(
@@ -335,10 +454,12 @@ class _CustomersState extends State<Customers> {
                                           context: context,
                                           dialogType: DialogType.WARNING,
                                           animType: AnimType.BOTTOMSLIDE,
-                                          title: 'Warning',
-                                          desc: 'Data will gone ',
+                                          title:
+                                              "data can't be returned if it's been deleted",
                                           btnCancelOnPress: () {},
                                           btnOkOnPress: () {},
+                                          btnCancelColor: Colors.blue.shade600,
+                                          btnOkColor: Colors.red.shade600,
                                         )..show();
                                       },
                                     ),
@@ -347,17 +468,7 @@ class _CustomersState extends State<Customers> {
                                       // label: 'Edit',
                                       icon: FluentIcons.edit_24_filled,
                                       foregroundColor: green,
-                                      onPressed: (i) {
-                                        AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.INFO,
-                                          animType: AnimType.BOTTOMSLIDE,
-                                          title: 'Edit',
-                                          desc: 'Change your data in here',
-                                          btnCancelOnPress: () {},
-                                          btnOkOnPress: () {},
-                                        )..show();
-                                      },
+                                      onPressed: (i) {editDialog();},
                                     ),
                                   ],
                                 ),
