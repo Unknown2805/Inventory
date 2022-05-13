@@ -23,14 +23,10 @@ class Repository {
     }
   }
 
-  Future putDataCategory(String name, String id) async {
+   Future putDataCategory(String name, String id) async {
     try {
-      final response = await http.put(Uri.parse(
-          'http://174.138.23.211:8282/api/apiCategories/' +
-              id +
-              "?name=" +
-              name));
-      if (response.statusCode == 200) {
+      final response = await http.put(Uri.parse('http://174.138.23.211:8282/api/apiCategories/'+id+"?name="+name));
+      if(response.statusCode == 200) {
         return true;
       } else {
         return false;

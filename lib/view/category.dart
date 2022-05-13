@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -126,7 +128,7 @@ class _CategoriesState extends State<Categories> {
         ),
       );
 
-      Future opennDialog() => showDialog(
+      Future opennDialog(String id) => showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) => Container(
@@ -170,6 +172,8 @@ class _CategoriesState extends State<Categories> {
                 onPressed: () {
                   Navigator.of(context).pop();
                   _nameController.clear();
+                  // print(id);
+                  // log(id);
                 },
               ),
               TextButton(
@@ -178,8 +182,9 @@ class _CategoriesState extends State<Categories> {
                   style: TextStyle(color: primarycolor),
                 ),
                 onPressed: () async {
-                  bool response = await repository.postDataCategory(
+                  bool response = await repository.putDataCategory(
                     _nameController.text,
+                    id
                   );
                   getData();
                   Navigator.push(
@@ -282,13 +287,20 @@ class _CategoriesState extends State<Categories> {
                                 onPressed: (i) {
                                   AwesomeDialog(
                                     context: context,
-                                    dialogType: DialogType.INFO,
+                                    dialogType: DialogType.WARNING,
                                     animType: AnimType.BOTTOMSLIDE,
-                                    title: 'Delete',
-                                    desc:
-                                        "data can't be returned if it's been deleted",
+                                    title: "data can't be returned if it's been deleted",
+                                   
                                     btnCancelOnPress: () {},
-                                    btnOkOnPress: () {},
+                                    btnOkOnPress: () async {
+                                      print(_user["id"]);
+                                    bool response =
+                                        await repository.deleteDataCategory(
+                                            _user["id"].toString());
+                                    getData();
+                                    },
+                                    btnCancelColor: Colors.blue.shade600,
+                                  btnOkColor: Colors.red.shade600,
                                   )..show();
                                 },
                               ),
@@ -298,17 +310,18 @@ class _CategoriesState extends State<Categories> {
                                 icon: FluentIcons.edit_24_filled,
                                 foregroundColor: green,
                                 onPressed: (i) {
-                                  AwesomeDialog(
-                                    context: context,
-                                    dialogType: DialogType.INFO,
-                                    animType: AnimType.BOTTOMSLIDE,
-                                    title: 'Edit',
-                                    desc: 'change data here!',
-                                    btnCancelOnPress: () {},
-                                    btnOkOnPress: () {
-                                      opennDialog();
-                                    },
-                                  )..show();
+                                   opennDialog(_user["id"].toString());
+                                  // AwesomeDialog(
+                                  //   context: context,
+                                  //   dialogType: DialogType.INFO,
+                                  //   animType: AnimType.BOTTOMSLIDE,
+                                  //   title: 'Edit',
+                                  //   desc: 'change data here!',
+                                  //   btnCancelOnPress: () {},
+                                  //   btnOkOnPress: () {
+                                  //     opennDialog(_user["id"].toString());
+                                  //   },
+                                  // )..show();
                                 },
                               ),
                             ],

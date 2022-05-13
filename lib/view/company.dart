@@ -42,7 +42,7 @@ class CompanyState extends State<Company> {
         // tombol add data
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            openDialog();
+            addcompany();
           },
           tooltip: 'Increment',
           child: const Icon(
@@ -64,7 +64,7 @@ class CompanyState extends State<Company> {
         ]));
   }
 
-  Future openDialog() => showDialog(
+  Future addcompany() => showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) => Container(
@@ -191,8 +191,7 @@ class CompanyState extends State<Company> {
         ),
       );
 
-      Future opennDialog() => showDialog(
-        barrierDismissible: false,
+     Future editcompany() => showDialog(
         context: context,
         builder: (context) => Container(
           child:  AlertDialog(
@@ -204,70 +203,77 @@ class CompanyState extends State<Company> {
                 Text('Input data name', style: TextStyle(color: primarycolor)),
             // ignore: avoid_unnecessary_containers
             content: Container(
-              height: 240,
-              child: Column(
-                children: [
-                  TextField(
-                    autofocus: true,
-                    style: TextStyle(color: white),
-                    controller: _nama_perusahaanController,
-                    decoration: InputDecoration(
-                      hintText: 'Name',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+              height: 324,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TextField(
+                      autofocus: true,
+                      style: TextStyle(color: white),
+                      controller: _nama_perusahaanController,
+                      decoration: InputDecoration(
+                        hintText: 'Name',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                  TextField(
-                    autofocus: true,
-                    style: TextStyle(color: white),
-                    controller: _alamatController,
-                    decoration: InputDecoration(
-                      hintText: 'alamat',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+                    TextField(
+                      style: TextStyle(color: white),
+                      controller: _alamatController,
+                      decoration: InputDecoration(
+                        hintText: 'Alamat',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                  TextField(
-                    autofocus: true,
-                    style: TextStyle(color: white),
-                    controller: _latController,
-                    decoration: InputDecoration(
-                      hintText: 'lat',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.number,
+                      controller: _latController,
+                      decoration: InputDecoration(
+                        hintText: 'lat',
+                        hintStyle: TextStyle(
+                          color: white.withOpacity(0.5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                  TextField(
-                    autofocus: true,
-                    style: TextStyle(color: white),
-                    controller: _longController,
-                    decoration: InputDecoration(
-                      hintText: 'long',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.number,
+                      controller: _longController,
+                      decoration: InputDecoration(
+                        hintText: 'long',
+                        hintStyle: TextStyle(
+                          color: white.withOpacity(0.5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                  TextField(
-                    autofocus: true,
-                    style: TextStyle(color: white),
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      hintText: 'email',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.number,
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        hintText: 'email',
+                        hintStyle: TextStyle(
+                          color: white.withOpacity(0.5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
@@ -478,15 +484,8 @@ class CompanyState extends State<Company> {
                                       icon: FluentIcons.edit_24_filled,
                                       foregroundColor: green,
                                       onPressed: (i) {
-                                        // AwesomeDialog(
-                                        //   context: context,
-                                        //   dialogType: DialogType.INFO,
-                                        //   animType: AnimType.BOTTOMSLIDE,
-                                        //   title: 'change data here!',
-                                        //   btnCancelOnPress: () {},
-                                        //   btnOkOnPress: () {},
-                                        // )..show();
-                                        opennDialog();
+                                       
+                                        editcompany();
                                       },
                                     ),
                                   ],
