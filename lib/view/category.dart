@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,9 @@ class Categories extends StatefulWidget {
 class _CategoriesState extends State<Categories> {
   Repository repository = Repository();
   final _nameController = TextEditingController();
+
   bool search = true;
+  bool _validate = false;
 
   List _users = [];
   @override
@@ -62,9 +66,11 @@ class _CategoriesState extends State<Categories> {
         barrierDismissible: false,
         context: context,
         builder: (context) => Container(
-          child: AlertDialog(
-          backgroundColor: background,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),side: BorderSide(color: primarycolor)),
+          child:  AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20), side: BorderSide(color: primarycolor) 
+            ),
+            backgroundColor: background,
             title:
                 Text('Input data name', style: TextStyle(color: primarycolor)),
             // ignore: avoid_unnecessary_containers
@@ -72,11 +78,13 @@ class _CategoriesState extends State<Categories> {
               height: 80,
               child: Column(
                 children: [
+                  Text('Data Can\'t Be Empty', style: TextStyle(color: white)),
                   TextField(
                     autofocus: true,
                     style: TextStyle(color: white),
                     controller: _nameController,
                     decoration: InputDecoration(
+                      labelText: 'Enter the value',
                       hintText: 'Name',
                       hintStyle: TextStyle(color: white.withOpacity(0.5)),
                       enabledBorder: UnderlineInputBorder(
@@ -107,6 +115,76 @@ class _CategoriesState extends State<Categories> {
                 onPressed: () async {
                   bool response = await repository.postDataCategory(
                     _nameController.text,
+                  );
+                  getData();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Categories()),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+
+      Future opennDialog(String id) => showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => Container(
+          child:  AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20), side: BorderSide(color: primarycolor) 
+            ),
+           
+            backgroundColor: background,
+            title:
+                Text('Input data name', style: TextStyle(color: primarycolor)),
+            // ignore: avoid_unnecessary_containers
+            content: Container(
+              height: 80,
+              child: Column(
+                children: [
+                  Text('Erorr showed'),
+                  TextField(
+                    autofocus: true,
+                    style: TextStyle(color: white),
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                      labelText: 'Enter the value',
+                      hintText: 'Name',
+                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primarycolor),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            actions: [
+              TextButton(
+                child: Text(
+                  'CLOSE',
+                  style: TextStyle(color: primarycolor),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _nameController.clear();
+                  // print(id);
+                  // log(id);
+                },
+              ),
+              TextButton(
+                child: Text(
+                  'SUBMIT',
+                  style: TextStyle(color: primarycolor),
+                ),
+                onPressed: () async {
+                  bool response = await repository.putDataCategory(
+                    _nameController.text,
+                    id
                   );
                   getData();
                   Navigator.push(
@@ -209,13 +287,20 @@ class _CategoriesState extends State<Categories> {
                                 onPressed: (i) {
                                   AwesomeDialog(
                                     context: context,
-                                    dialogType: DialogType.INFO,
+                                    dialogType: DialogType.WARNING,
                                     animType: AnimType.BOTTOMSLIDE,
-                                    title: 'Delete',
-                                    desc:
-                                        "data can't be returned if it's been deleted",
+                                    title: "data can't be returned if it's been deleted",
+                                   
                                     btnCancelOnPress: () {},
-                                    btnOkOnPress: () {},
+                                    btnOkOnPress: () async {
+                                      print(_user["id"]);
+                                    bool response =
+                                        await repository.deleteDataCategory(
+                                            _user["id"].toString());
+                                    getData();
+                                    },
+                                    btnCancelColor: Colors.blue.shade600,
+                                  btnOkColor: Colors.red.shade600,
                                   )..show();
                                 },
                               ),
@@ -225,15 +310,18 @@ class _CategoriesState extends State<Categories> {
                                 icon: FluentIcons.edit_24_filled,
                                 foregroundColor: green,
                                 onPressed: (i) {
-                                  AwesomeDialog(
-                                    context: context,
-                                    dialogType: DialogType.INFO,
-                                    animType: AnimType.BOTTOMSLIDE,
-                                    title: 'Edit',
-                                    desc: 'change data here!',
-                                    btnCancelOnPress: () {},
-                                    btnOkOnPress: () {},
-                                  )..show();
+                                   opennDialog(_user["id"].toString());
+                                  // AwesomeDialog(
+                                  //   context: context,
+                                  //   dialogType: DialogType.INFO,
+                                  //   animType: AnimType.BOTTOMSLIDE,
+                                  //   title: 'Edit',
+                                  //   desc: 'change data here!',
+                                  //   btnCancelOnPress: () {},
+                                  //   btnOkOnPress: () {
+                                  //     opennDialog(_user["id"].toString());
+                                  //   },
+                                  // )..show();
                                 },
                               ),
                             ],

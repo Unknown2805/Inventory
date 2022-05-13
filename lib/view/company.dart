@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -14,7 +17,7 @@ class Company extends StatefulWidget {
 }
 
 class CompanyState extends State<Company> {
-   Repository repository = Repository();
+  Repository repository = Repository();
   final _nama_perusahaanController = TextEditingController();
   final _alamatController = TextEditingController();
   final _latController = TextEditingController();
@@ -22,6 +25,7 @@ class CompanyState extends State<Company> {
   final _emailController = TextEditingController();
   bool search = true;
   bool heightBox = true;
+  
   @override
   List _users = [];
   @override
@@ -38,7 +42,7 @@ class CompanyState extends State<Company> {
         // tombol add data
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            openDialog();
+            addcompany();
           },
           tooltip: 'Increment',
           child: const Icon(
@@ -60,13 +64,15 @@ class CompanyState extends State<Company> {
         ]));
   }
 
-  Future openDialog() => showDialog(
+  Future addcompany() => showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) => Container(
-          child: AlertDialog(
-          backgroundColor: background,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),side: BorderSide(color: primarycolor)),
+          child:  AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20), side: BorderSide(color: primarycolor) 
+            ),
+            backgroundColor: background,
             title:
                 Text('Input data name', style: TextStyle(color: primarycolor)),
             // ignore: avoid_unnecessary_containers
@@ -147,10 +153,10 @@ class CompanyState extends State<Company> {
                 onPressed: () {
                   Navigator.of(context).pop();
                   _nama_perusahaanController.clear();
-                      _alamatController.clear();
-                      _latController.clear();
-                      _longController.clear();
-                      _emailController.clear();
+                  _alamatController.clear();
+                  _latController.clear();
+                  _longController.clear();
+                  _emailController.clear();
                 },
               ),
               TextButton(
@@ -161,16 +167,156 @@ class CompanyState extends State<Company> {
                 onPressed: () async {
                   bool response = await repository.postDataCompanies(
                     _nama_perusahaanController.text,
-                      _alamatController.text,
-                      _emailController.text,
-                      _latController.text,
-                      _longController.text,
+                    _alamatController.text,
+                    _latController.text,
+                    _longController.text,
+                    _emailController.text,
                   );
-                  getData();
-                  Navigator.push(
+
+                  
+                  if(response == true){
+                    Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Company()),
                   );
+                  getData();
+                  }else{
+                    log("error lep");
+                  }
+                  
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+
+     Future editcompany() => showDialog(
+        context: context,
+        builder: (context) => Container(
+          child:  AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20), side: BorderSide(color: primarycolor) 
+            ),
+            backgroundColor: background,
+            title:
+                Text('Input data name', style: TextStyle(color: primarycolor)),
+            // ignore: avoid_unnecessary_containers
+            content: Container(
+              height: 324,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TextField(
+                      autofocus: true,
+                      style: TextStyle(color: white),
+                      controller: _nama_perusahaanController,
+                      decoration: InputDecoration(
+                        hintText: 'Name',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      style: TextStyle(color: white),
+                      controller: _alamatController,
+                      decoration: InputDecoration(
+                        hintText: 'Alamat',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.number,
+                      controller: _latController,
+                      decoration: InputDecoration(
+                        hintText: 'lat',
+                        hintStyle: TextStyle(
+                          color: white.withOpacity(0.5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.number,
+                      controller: _longController,
+                      decoration: InputDecoration(
+                        hintText: 'long',
+                        hintStyle: TextStyle(
+                          color: white.withOpacity(0.5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.number,
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        hintText: 'email',
+                        hintStyle: TextStyle(
+                          color: white.withOpacity(0.5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            actions: [
+              TextButton(
+                child: Text(
+                  'CLOSE',
+                  style: TextStyle(color: primarycolor),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _nama_perusahaanController.clear();
+                  _alamatController.clear();
+                  _latController.clear();
+                  _longController.clear();
+                  _emailController.clear();
+                },
+              ),
+              TextButton(
+                child: Text(
+                  'SUBMIT',
+                  style: TextStyle(color: primarycolor),
+                ),
+                onPressed: () async {
+                  bool response = await repository.postDataCompanies(
+                    _nama_perusahaanController.text,
+                    _alamatController.text,
+                    _latController.text,
+                    _longController.text,
+                    _emailController.text,
+                  );
+
+                  
+                  if(response == true){
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Company()),
+                  );
+                  getData();
+                  }else{
+                    log("error lep");
+                  }
+                  
                 },
               ),
             ],
@@ -191,11 +337,12 @@ class CompanyState extends State<Company> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                         IconButton(
-                           onPressed: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => Dashboard()),
-                        (Route<dynamic> route) => false);
-                  },
+                            onPressed: () {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => Dashboard()),
+                                  (Route<dynamic> route) => false);
+                            },
                             icon: const Icon(FluentIcons.arrow_reply_24_filled,
                                 color: Colors.white)),
                         Text("Companies",
@@ -320,23 +467,15 @@ class CompanyState extends State<Company> {
                                       icon: FluentIcons.delete_24_filled,
                                       foregroundColor: red,
                                       onPressed: (i) {
-                                        // AwesomeDialog(
-                                        //   context: context,
-                                        //   dialogType: DialogType.INFO_REVERSED,
-                                        //   animType: AnimType.BOTTOMSLIDE,
-                                        //   title: 'Delete',
-                                        //   desc: 'data can not be returned',
-                                        //   btnCancelOnPress: () {},
-                                        //   btnCancelColor: Colors.blue.shade600,
-                                        //   btnOkColor: Colors.red.shade600,
-                                        //   btnOkOnPress: ()  {
-                                        //     // print(_user["id"]);
-                                        //     // bool response =
-                                        //     //     await repository.deleteDataCategory(
-                                        //     //         _user["id"].toString());
-                                        //     // getData();
-                                        //   },
-                                        // )..show();
+                                        AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.WARNING,
+                                          animType: AnimType.BOTTOMSLIDE,
+                                          title:
+                                              "data can't be returned if it's been deleted",
+                                          btnCancelOnPress: () {},
+                                          btnOkOnPress: () {},
+                                        )..show();
                                       },
                                     ),
                                     SlidableAction(
@@ -345,12 +484,8 @@ class CompanyState extends State<Company> {
                                       icon: FluentIcons.edit_24_filled,
                                       foregroundColor: green,
                                       onPressed: (i) {
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) => EditCategory(
-                                        //               id: _user["id"],
-                                        //             )));
+                                       
+                                        editcompany();
                                       },
                                     ),
                                   ],

@@ -61,66 +61,98 @@ class _SuppliersState extends State<Suppliers> {
   Future openDialog() => showDialog(
         context: context,
         builder: (context) => Container(
-          child: AlertDialog(
-          backgroundColor: background,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),side: BorderSide(color: primarycolor)),
+          child:  AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20), side: BorderSide(color: primarycolor) 
+            ),
+            backgroundColor: background,
             title:
                 Text('Input data name', style: TextStyle(color: primarycolor)),
             // ignore: avoid_unnecessary_containers
             content: Container(
-              height: 200,
-              child: Column(
-                children: [
-                  TextField(
-                    autofocus: true,
-                    style: TextStyle(color: white),
-                    controller: _namaController,
-                    decoration: InputDecoration(
-                      hintText: 'Name',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+              height: 324,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TextField(
+                      autofocus: true,
+                      style: TextStyle(color: white),
+                      controller: _namaController,
+                      decoration: InputDecoration(
+                        hintText: 'Name',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                  TextField(
-                    style: TextStyle(color: white),
-                    controller: _alamatController,
-                    decoration: InputDecoration(
-                      hintText: 'Alamat',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+                    TextField(
+                      style: TextStyle(color: white),
+                      controller: _alamatController,
+                      decoration: InputDecoration(
+                        hintText: 'Alamat',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                  TextField(
-                    style: TextStyle(color: white),
-                    keyboardType: TextInputType.emailAddress,
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        hintText: 'Email',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                  TextField(
-                    style: TextStyle(color: white),
-                    keyboardType: TextInputType.number,
-                    controller: _teleponController,
-                    decoration: InputDecoration(
-                      hintText: 'telepon',
-                      hintStyle: TextStyle(
-                        color: white.withOpacity(0.5),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.number,
+                      controller: _teleponController,
+                      decoration: InputDecoration(
+                        hintText: 'telepon',
+                        hintStyle: TextStyle(
+                          color: white.withOpacity(0.5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.number,
+                      controller: _npwpController,
+                      decoration: InputDecoration(
+                        hintText: 'nomor npwp',
+                        hintStyle: TextStyle(
+                          color: white.withOpacity(0.5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.number,
+                      controller: _no_ktpController,
+                      decoration: InputDecoration(
+                        hintText: 'ktp_number',
+                        hintStyle: TextStyle(
+                          color: white.withOpacity(0.5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
 

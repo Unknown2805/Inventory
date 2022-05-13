@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import '../view/category.dart';
 import 'package:http/http.dart' as http;
 
@@ -22,14 +23,10 @@ class Repository {
     }
   }
 
-  Future putDataCategory(String name, String id) async {
+   Future putDataCategory(String name, String id) async {
     try {
-      final response = await http.put(Uri.parse(
-          'http://174.138.23.211:8282/api/apiCategories/' +
-              id +
-              "?name=" +
-              name));
-      if (response.statusCode == 200) {
+      final response = await http.put(Uri.parse('http://174.138.23.211:8282/api/apiCategories/'+id+"?name="+name));
+      if(response.statusCode == 200) {
         return true;
       } else {
         return false;
@@ -126,22 +123,30 @@ class Repository {
   // Tutup ProductOut
 
   // Companies
-  Future postDataCompanies(String nama_perusahaan, String alamat, String lat,
-      String long, String email) async {
+  Future postDataCompanies(String nama_perusahaan, String alamat, String lat, String long, String email) async {
     try {
       final response = await http.post(
-          Uri.parse('http://174.138.23.211:8282/api/apiCompanies'),
-          body: {
-            "nama": nama_perusahaan,
+          Uri.parse('http://174.138.23.211:8282/api/apiCompanies'),   
+          
+          headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          },
+
+          
+          body: jsonEncode({
+            "nama_ahaan": nama_perusahaan,
             "alamat": alamat,
-            "email": email,
             "lat": lat,
             "long": long,
-          });
+            "email": email,
+          }));
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
+        log("konto");
         return true;
       } else {
+        log("koo");
+
         return false;
       }
     } catch (e) {
@@ -173,4 +178,24 @@ class Repository {
     }
   }
   // Tutup Suppliers
+
+  // Users
+    Future postDataUsers(String name, String email, String role,) async {
+    try {
+      final response = await http.post(Uri.parse('http://174.138.23.211:8282/api/apiUsers'), body: {
+        "name": name, 
+        "email" : email,
+        "role" : role,
+      });
+
+      if(response.statusCode == 201) {
+        return true;
+      } else { 
+        return false;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+  // Tutup Users
 }
