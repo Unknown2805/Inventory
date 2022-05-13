@@ -65,7 +65,8 @@ class CompanyState extends State<Company> {
         context: context,
         builder: (context) => Container(
           child: AlertDialog(
-            backgroundColor: background,
+          backgroundColor: background,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),side: BorderSide(color: primarycolor)),
             title:
                 Text('Input data name', style: TextStyle(color: primarycolor)),
             // ignore: avoid_unnecessary_containers
