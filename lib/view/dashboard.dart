@@ -130,17 +130,32 @@ Future openDialog() => showDialog(
                     child: Text("master",style: TextStyle(color: white,fontSize: 16, fontWeight: FontWeight.w300))),
 
                 ),
-                SizedBox(height: 25),
+                SizedBox(height: 35),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    TextButton(
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.all(Colors.transparent),
+                      ),
+                child: Text(
+                  'CLOSE',
+                  style: TextStyle(color: primarycolor),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+                  SizedBox(width: 10),
                     Container(
             height: 36,
             width: 90,
             child: TextButton(
               onPressed: () async {
+                Navigator.pop(context);
               },
               style: ButtonStyle(
+                       overlayColor: MaterialStateProperty.all(Colors.transparent),
                       padding:
                           MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10)),
                       backgroundColor:
