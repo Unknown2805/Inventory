@@ -72,52 +72,109 @@ floatingActionButton: FloatingActionButton(
 
 Future openDialog() => showDialog(
         context: context,
-        builder: (context) => Container(
-          child: AlertDialog(
-            backgroundColor: background,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),side: BorderSide(color: primarycolor)),
-            // ignore: avoid_unnecessary_containers
-            content: Container(
-              padding: EdgeInsets.all(5),
-              height: 300,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Column(
-                      children: [
-                        Container(
-                        alignment: Alignment.center,
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(color: Color((0xffa9def9)))
-                        ),
-                        child: Icon(FluentIcons.person_20_filled,color: Color(0xffa9def9),size: 30,)
-                  ),
-                  SizedBox(height: 10,),
-                  Text("Master",style: TextStyle(color: white,fontSize: 18,fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    SizedBox(height: 40,),
-                    
-                  Container(
-                    width: 230,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: boxColor,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text("master@gmail.com",style: TextStyle(color: white,fontSize: 16, fontWeight: FontWeight.w500)),
-
-                  ),
-                  ],
+        builder: (context) => AlertDialog(
+          backgroundColor: background,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),side: BorderSide(color: primarycolor)),
+          // ignore: avoid_unnecessary_containers
+          content: SizedBox(
+            
+            height: 300,
+            width: 220,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                      alignment: Alignment.center,
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: Color((0xffa9def9)))
+                      ),
+                      child: Icon(FluentIcons.person_20_filled,color: Color(0xffa9def9),size: 30,)
                 ),
+                SizedBox(height: 10,),
+                Text("Master",style: TextStyle(color: white,fontSize: 24,fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  SizedBox(height: 30,),
+                  
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  alignment: Alignment.centerLeft,
+                  width: 250,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: boxColor,
+                    borderRadius: BorderRadius.circular(9),
+                  ),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text("master12345@gmail.com",style: TextStyle(color: white,fontSize: 16, fontWeight: FontWeight.w300))),
+
+                ),
+                SizedBox(height: 10,),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  alignment: Alignment.centerLeft,
+                  width: 250,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: boxColor,
+                    borderRadius: BorderRadius.circular(9),
+                  ),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text("master",style: TextStyle(color: white,fontSize: 16, fontWeight: FontWeight.w300))),
+
+                ),
+                SizedBox(height: 25),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+            height: 36,
+            width: 90,
+            child: TextButton(
+              onPressed: () async {
+              },
+              style: ButtonStyle(
+                      padding:
+                          MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10)),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(red),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                        )
+                      )
+                    ),
+              child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(FluentIcons.arrow_reply_24_filled,color: white,size: 16,),
+                      SizedBox(width: 5,),
+                      Text(
+                        "logout",
+                        style: TextStyle(
+                            color: white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14),
+                      ),
+                    ],
               ),
             ),
-
-            
           ),
+                  ],
+                ),
+                ],
+              ),
+            ),
+          ),
+
+          
         ),
       );
 
