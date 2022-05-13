@@ -110,7 +110,7 @@ class _ScanPageState extends State<ScanPage> {
                       fontWeight: FontWeight.w500),
             ),
             Container(
-              alignment: Alignment.center,
+              alignment: Alignment.centerRight,
               width: 140,
               child:Text(
                       (qty == null) ? "0" : qty.toString(),
@@ -136,7 +136,7 @@ class _ScanPageState extends State<ScanPage> {
                         fontWeight: FontWeight.w500,
                       )),
                   Container(
-                    alignment: Alignment.center,
+                    alignment: Alignment.centerRight,
                     width: 140,
                     child:  Text(
                 (price == null) ? "Rp.0" : "Rp.${price.toString()}",
@@ -153,7 +153,8 @@ class _ScanPageState extends State<ScanPage> {
               Container(
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
-                color: boxColor
+                border: Border.all(color: primarycolor),
+                
                 ),
                 height: 170,
                 width: 320,

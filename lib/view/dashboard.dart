@@ -70,6 +70,57 @@ floatingActionButton: FloatingActionButton(
      
    }
 
+Future openDialog() => showDialog(
+        context: context,
+        builder: (context) => Container(
+          child: AlertDialog(
+            backgroundColor: background,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),side: BorderSide(color: primarycolor)),
+            // ignore: avoid_unnecessary_containers
+            content: Container(
+              padding: EdgeInsets.all(5),
+              height: 300,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                        alignment: Alignment.center,
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          border: Border.all(color: Color((0xffa9def9)))
+                        ),
+                        child: Icon(FluentIcons.person_20_filled,color: Color(0xffa9def9),size: 30,)
+                  ),
+                  SizedBox(height: 10,),
+                  Text("Master",style: TextStyle(color: white,fontSize: 18,fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                    SizedBox(height: 40,),
+                    
+                  Container(
+                    width: 230,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: boxColor,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text("master@gmail.com",style: TextStyle(color: white,fontSize: 16, fontWeight: FontWeight.w500)),
+
+                  ),
+                  ],
+                ),
+              ),
+            ),
+
+            
+          ),
+        ),
+      );
+
   Widget dashboardheader(BuildContext context){
     return Container(
       padding: EdgeInsets.all(15),
@@ -86,7 +137,9 @@ floatingActionButton: FloatingActionButton(
               style: ButtonStyle(
   overlayColor: MaterialStateProperty.all(Colors.transparent),
  ),
-              onPressed: (){},
+              onPressed: (){
+                openDialog();
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -105,7 +158,8 @@ floatingActionButton: FloatingActionButton(
                 ],
               ),
             ),
-          )
+          ),
+         
         ],
       )
     );

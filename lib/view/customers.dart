@@ -21,6 +21,7 @@ class _CustomersState extends State<Customers> {
   final _teleponController = TextEditingController();
   bool search = true;
   bool heightBox = true;
+  bool validate = false;
   @override
   List _users = [];
   @override
@@ -69,58 +70,62 @@ class _CustomersState extends State<Customers> {
             // ignore: avoid_unnecessary_containers
             content: Container(
               height: 200,
-              child: Column(
-                children: [
-                  TextField(
-                    autofocus: true,
-                    style: TextStyle(color: white),
-                    controller: _namaController,
-                    decoration: InputDecoration(
-                      hintText: 'Name',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TextField(
+                      maxLength: 5,
+                      autofocus: true,
+                      style: TextStyle(color: white),
+                      controller: _namaController,
+                      decoration: InputDecoration(
+                        
+                        hintText: 'Name',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                  TextField(
-                    style: TextStyle(color: white),
-                    controller: _alamatController,
-                    decoration: InputDecoration(
-                      hintText: 'Alamat',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+                    TextField(
+                      style: TextStyle(color: white),
+                      controller: _alamatController,
+                      decoration: InputDecoration(
+                        hintText: 'Alamat',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                  TextField(
-                    style: TextStyle(color: white),
-                    keyboardType: TextInputType.emailAddress,
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        hintText: 'Email',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                  TextField(
-                    style: TextStyle(color: white),
-                    keyboardType: TextInputType.number,
-                    controller: _teleponController,
-                    decoration: InputDecoration(
-                      hintText: 'telepon',
-                      hintStyle: TextStyle(
-                        color: white.withOpacity(0.5),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.number,
+                      controller: _teleponController,
+                      decoration: InputDecoration(
+                        hintText: 'telepon',
+                        hintStyle: TextStyle(
+                          color: white.withOpacity(0.5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
@@ -132,7 +137,7 @@ class _CustomersState extends State<Customers> {
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  _namaController.clear();
+                      _namaController.clear();
                       _alamatController.clear();
                       _emailController.clear();
                       _teleponController.clear();
@@ -144,17 +149,38 @@ class _CustomersState extends State<Customers> {
                     style: TextStyle(color: primarycolor),
                   ),
                   onPressed: () async {
+        
                     bool response = await repository.postDataCustomers(
                       _namaController.text,
                       _alamatController.text,
                       _emailController.text,
                       _teleponController.text,
                     );
+                  
                     getData();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Customers()),
-                    );
+                     if (_namaController.text.isEmpty
+                    ){
+                      print("isi dulu lah");
+                      
+                    }
+                     if (_alamatController.text.isEmpty
+                    ){
+                      print("isi dulu lah");
+                    } 
+                     if (_emailController.text.isEmpty
+                    ){
+                      print("isi dulu lah");
+                    } 
+                     if (_teleponController.text.isEmpty
+                    ){
+                      print("isi dulu lah");
+                    } else{
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Customers()),
+                        );
+                    }
+                    
                   })
             ],
           ),
@@ -164,7 +190,6 @@ class _CustomersState extends State<Customers> {
   void submit() {
     Navigator.of(context).pop();
   }
-
   Widget customersheader(BuildContext context) {
     return SafeArea(
       child: Column(
