@@ -25,7 +25,7 @@ class CompanyState extends State<Company> {
   final _emailController = TextEditingController();
   bool search = true;
   bool heightBox = true;
-  
+
   @override
   List _users = [];
   @override
@@ -68,10 +68,10 @@ class CompanyState extends State<Company> {
         barrierDismissible: false,
         context: context,
         builder: (context) => Container(
-          child:  AlertDialog(
+          child: AlertDialog(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20), side: BorderSide(color: primarycolor) 
-            ),
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(color: primarycolor)),
             backgroundColor: background,
             title:
                 Text('Input data name', style: TextStyle(color: primarycolor)),
@@ -173,17 +173,15 @@ class CompanyState extends State<Company> {
                     _emailController.text,
                   );
 
-                  
-                  if(response == true){
+                  if (response == true) {
                     Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Company()),
-                  );
-                  getData();
-                  }else{
+                      context,
+                      MaterialPageRoute(builder: (context) => Company()),
+                    );
+                    getData();
+                  } else {
                     log("error lep");
                   }
-                  
                 },
               ),
             ],
@@ -191,13 +189,13 @@ class CompanyState extends State<Company> {
         ),
       );
 
-     Future editcompany() => showDialog(
+  Future editcompany() => showDialog(
         context: context,
         builder: (context) => Container(
-          child:  AlertDialog(
+          child: AlertDialog(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20), side: BorderSide(color: primarycolor) 
-            ),
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(color: primarycolor)),
             backgroundColor: background,
             title:
                 Text('Input data name', style: TextStyle(color: primarycolor)),
@@ -306,17 +304,15 @@ class CompanyState extends State<Company> {
                     _emailController.text,
                   );
 
-                  
-                  if(response == true){
+                  if (response == true) {
                     Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Company()),
-                  );
-                  getData();
-                  }else{
+                      context,
+                      MaterialPageRoute(builder: (context) => Company()),
+                    );
+                    getData();
+                  } else {
                     log("error lep");
                   }
-                  
                 },
               ),
             ],
@@ -475,6 +471,8 @@ class CompanyState extends State<Company> {
                                               "data can't be returned if it's been deleted",
                                           btnCancelOnPress: () {},
                                           btnOkOnPress: () {},
+                                          btnCancelColor: Colors.blue.shade600,
+                                          btnOkColor: Colors.red.shade600,
                                         )..show();
                                       },
                                     ),
@@ -484,7 +482,6 @@ class CompanyState extends State<Company> {
                                       icon: FluentIcons.edit_24_filled,
                                       foregroundColor: green,
                                       onPressed: (i) {
-                                       
                                         editcompany();
                                       },
                                     ),
