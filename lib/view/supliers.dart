@@ -70,7 +70,7 @@ class _SuppliersState extends State<Suppliers> {
                 Text('Input data name', style: TextStyle(color: primarycolor)),
             // ignore: avoid_unnecessary_containers
             content: Container(
-              height: 324,
+              height: 320,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
