@@ -73,6 +73,69 @@ class _CategoriesState extends State<Categories> {
               height: 80,
               child: Column(
                 children: [
+                  Text('Data Can\'t Be Empty', style: TextStyle(color: white)),
+                  TextField(
+                    autofocus: true,
+                    style: TextStyle(color: white),
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                      labelText: 'Enter the value',
+                      hintText: 'Name',
+                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primarycolor),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            actions: [
+              TextButton(
+                child: Text(
+                  'CLOSE',
+                  style: TextStyle(color: primarycolor),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _nameController.clear();
+                },
+              ),
+              TextButton(
+                child: Text(
+                  'SUBMIT',
+                  style: TextStyle(color: primarycolor),
+                ),
+                onPressed: () async {
+                  bool response = await repository.postDataCategory(
+                    _nameController.text,
+                  );
+                  getData();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Categories()),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+
+      Future opennDialog() => showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => Container(
+          child: AlertDialog(
+            backgroundColor: background,
+            title:
+                Text('Input data name', style: TextStyle(color: primarycolor)),
+            // ignore: avoid_unnecessary_containers
+            content: Container(
+              height: 80,
+              child: Column(
+                children: [
                   Text('Erorr showed'),
                   TextField(
                     autofocus: true,
@@ -235,7 +298,9 @@ class _CategoriesState extends State<Categories> {
                                     title: 'Edit',
                                     desc: 'change data here!',
                                     btnCancelOnPress: () {},
-                                    btnOkOnPress: () {},
+                                    btnOkOnPress: () {
+                                      opennDialog();
+                                    },
                                   )..show();
                                 },
                               ),

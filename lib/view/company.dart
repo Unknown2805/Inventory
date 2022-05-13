@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -167,11 +169,142 @@ class CompanyState extends State<Company> {
                     _longController.text,
                     _emailController.text,
                   );
-                  getData();
-                  Navigator.push(
+
+                  
+                  if(response == true){
+                    Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Company()),
                   );
+                  getData();
+                  }else{
+                    log("error lep");
+                  }
+                  
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+
+      Future opennDialog() => showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => Container(
+          child: AlertDialog(
+            backgroundColor: background,
+            title:
+                Text('Input data name', style: TextStyle(color: primarycolor)),
+            // ignore: avoid_unnecessary_containers
+            content: Container(
+              height: 240,
+              child: Column(
+                children: [
+                  TextField(
+                    autofocus: true,
+                    style: TextStyle(color: white),
+                    controller: _nama_perusahaanController,
+                    decoration: InputDecoration(
+                      hintText: 'Name',
+                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primarycolor),
+                      ),
+                    ),
+                  ),
+                  TextField(
+                    autofocus: true,
+                    style: TextStyle(color: white),
+                    controller: _alamatController,
+                    decoration: InputDecoration(
+                      hintText: 'alamat',
+                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primarycolor),
+                      ),
+                    ),
+                  ),
+                  TextField(
+                    autofocus: true,
+                    style: TextStyle(color: white),
+                    controller: _latController,
+                    decoration: InputDecoration(
+                      hintText: 'lat',
+                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primarycolor),
+                      ),
+                    ),
+                  ),
+                  TextField(
+                    autofocus: true,
+                    style: TextStyle(color: white),
+                    controller: _longController,
+                    decoration: InputDecoration(
+                      hintText: 'long',
+                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primarycolor),
+                      ),
+                    ),
+                  ),
+                  TextField(
+                    autofocus: true,
+                    style: TextStyle(color: white),
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      hintText: 'email',
+                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primarycolor),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            actions: [
+              TextButton(
+                child: Text(
+                  'CLOSE',
+                  style: TextStyle(color: primarycolor),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _nama_perusahaanController.clear();
+                  _alamatController.clear();
+                  _latController.clear();
+                  _longController.clear();
+                  _emailController.clear();
+                },
+              ),
+              TextButton(
+                child: Text(
+                  'SUBMIT',
+                  style: TextStyle(color: primarycolor),
+                ),
+                onPressed: () async {
+                  bool response = await repository.postDataCompanies(
+                    _nama_perusahaanController.text,
+                    _alamatController.text,
+                    _latController.text,
+                    _longController.text,
+                    _emailController.text,
+                  );
+
+                  
+                  if(response == true){
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Company()),
+                  );
+                  getData();
+                  }else{
+                    log("error lep");
+                  }
+                  
                 },
               ),
             ],
@@ -339,14 +472,15 @@ class CompanyState extends State<Company> {
                                       icon: FluentIcons.edit_24_filled,
                                       foregroundColor: green,
                                       onPressed: (i) {
-                                        AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.INFO,
-                                          animType: AnimType.BOTTOMSLIDE,
-                                          title: 'change data here!',
-                                          btnCancelOnPress: () {},
-                                          btnOkOnPress: () {},
-                                        )..show();
+                                        // AwesomeDialog(
+                                        //   context: context,
+                                        //   dialogType: DialogType.INFO,
+                                        //   animType: AnimType.BOTTOMSLIDE,
+                                        //   title: 'change data here!',
+                                        //   btnCancelOnPress: () {},
+                                        //   btnOkOnPress: () {},
+                                        // )..show();
+                                        opennDialog();
                                       },
                                     ),
                                   ],

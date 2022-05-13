@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import '../view/category.dart';
 import 'package:http/http.dart' as http;
 
@@ -129,17 +130,27 @@ class Repository {
   Future postDataCompanies(String nama_perusahaan, String alamat, String lat, String long, String email) async {
     try {
       final response = await http.post(
-          Uri.parse('http://174.138.23.211:8282/api/apiCompanies'), body: {
-            "nama": nama_perusahaan,
+          Uri.parse('http://174.138.23.211:8282/api/apiCompanies'),   
+          
+          headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          },
+
+          
+          body: jsonEncode({
+            "nama_ahaan": nama_perusahaan,
             "alamat": alamat,
             "lat": lat,
             "long": long,
             "email": email,
-          });
+          }));
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
+        log("konto");
         return true;
       } else {
+        log("koo");
+
         return false;
       }
     } catch (e) {
