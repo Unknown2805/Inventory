@@ -47,7 +47,10 @@ class _UsersState extends State<Users> {
   Future openDialog() => showDialog(
         context: context,
         builder: (context) => Container(
-          child: AlertDialog(
+          child:  AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20), side: BorderSide(color: primarycolor) 
+            ),
             backgroundColor: background,
             title:
                 Text('Input data name', style: TextStyle(color: primarycolor)),
