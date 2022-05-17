@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:barcode_scan/barcode_scan.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_app/view/constant.dart';
 import 'package:inventory_app/helper/apihelper.dart';
@@ -186,15 +186,10 @@ class _ScanPageState extends State<ScanPage> {
             width: 180,
             child: TextButton(
               onPressed: () async {
-                // String codeScanning =
-                //     ( BarcodeScanner.scan(
-                //     )) as String; //barcode scnnerflutte
-                // setState(() {
-                //   qrCodeResult = codeScanning;
-                // });
+               
                 try {
                   String codeSanner =
-                      (await BarcodeScanner.scan()); //barcode scnner
+                      (await FlutterBarcodeScanner.scanBarcode("#ff6666", "Cancel", false, ScanMode.DEFAULT)); //barcode scnner
                   var request = await ApiHelper.getData(codeSanner);
       
                   if (request == null) {
