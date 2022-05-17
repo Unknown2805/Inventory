@@ -308,8 +308,6 @@ class _CustomersState extends State<Customers> {
         ),
       );
 
-  
-
   Widget customersheader(BuildContext context) {
     return SafeArea(
       child: Column(
@@ -454,12 +452,18 @@ class _CustomersState extends State<Customers> {
                                           context: context,
                                           dialogType: DialogType.WARNING,
                                           animType: AnimType.BOTTOMSLIDE,
-                                          title:
-                                              "data can't be returned if it's been deleted",
+                                          title: 'Delete',
+                                          desc: 'data can not be returned',
                                           btnCancelOnPress: () {},
-                                          btnOkOnPress: () {},
                                           btnCancelColor: Colors.blue.shade600,
                                           btnOkColor: Colors.red.shade600,
+                                          btnOkOnPress: () async {
+                                            print(_user["id"]);
+                                            bool response = await repository
+                                                .deleteDataCustomers(
+                                                    _user["id"].toString());
+                                            getData();
+                                          },
                                         )..show();
                                       },
                                     ),
@@ -468,7 +472,9 @@ class _CustomersState extends State<Customers> {
                                       // label: 'Edit',
                                       icon: FluentIcons.edit_24_filled,
                                       foregroundColor: green,
-                                      onPressed: (i) {editDialog();},
+                                      onPressed: (i) {
+                                        editDialog();
+                                      },
                                     ),
                                   ],
                                 ),
@@ -502,7 +508,24 @@ class _CustomersState extends State<Customers> {
                                           width: 60,
                                           height: 60,
                                           child: TextButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                AwesomeDialog(
+                                                  context: context,
+                                                  dialogType:
+                                                      DialogType.WARNING,
+                                                  animType:
+                                                      AnimType.BOTTOMSLIDE,
+                                                  title: 'Delete',
+                                                  desc:
+                                                      'data can not be returned',
+                                                  btnCancelColor:
+                                                      Colors.blue.shade600,
+                                                  btnOkColor:
+                                                      Colors.red.shade600,
+                                                  btnCancelOnPress: () {},
+                                                  btnOkOnPress: () {},
+                                                )..show();
+                                              },
                                               child: Icon(
                                                   FluentIcons.delete_24_filled,
                                                   size: 35,
@@ -513,7 +536,9 @@ class _CustomersState extends State<Customers> {
                                           width: 60,
                                           height: 60,
                                           child: TextButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                editDialog();
+                                              },
                                               child: Icon(
                                                   FluentIcons.edit_24_filled,
                                                   size: 35,

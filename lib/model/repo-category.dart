@@ -23,10 +23,31 @@ class Repository {
     }
   }
 
-   Future putDataCategory(String name, String id) async {
+  Future putDataCategory(String name, String id) async {
     try {
-      final response = await http.put(Uri.parse('http://174.138.23.211:8282/api/apiCategories/'+id+"?name="+name));
-      if(response.statusCode == 200) {
+      final response = await http.put(Uri.parse(
+          'http://174.138.23.211:8282/api/apiCategories/' +
+              id +
+              "?name=" +
+              name));
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future putDataSuppliers(String name, String id) async {
+    try {
+      final response = await http.put(Uri.parse(
+          'http://174.138.23.211:8282/api/apiCategories/' +
+              id +
+              "?name=" +
+              name));
+      if (response.statusCode == 200) {
         return true;
       } else {
         return false;
@@ -53,8 +74,7 @@ class Repository {
   // Tutup Category
 
   // Customers
-  Future postDataCustomers(
-      String nama, String alamat, String email, String telepon) async {
+  Future postDataCustomers( String nama, String alamat, String email, String telepon) async {
     try {
       final response = await http.post(
           Uri.parse('http://174.138.23.211:8282/api/apiCustomers'),
@@ -73,12 +93,46 @@ class Repository {
     } catch (e) {
       print(e.toString());
     }
+
+    
+
   }
+
+  Future putDataCustomers(String name, String id) async {
+      try {
+        final response = await http.put(Uri.parse(
+            'http://174.138.23.211:8282/api/apiCustomers/' +
+                id +
+                "?name=" +
+                name));
+        if (response.statusCode == 200) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (e) {
+        print(e.toString());
+      }
+    }
+
+  Future deleteDataCustomers(String id) async {
+      var data;
+      try {
+        final response = await http.delete(
+            Uri.parse('http://174.138.23.211:8282/api/apiCustomers/' + id));
+        if (response.statusCode == 200) {
+          data = await jsonDecode(response.body);
+          return true;
+        } else
+          return false;
+      } catch (e) {
+        print(e.toString());
+      }
+    }
   // Tutup Customers
 
   // Sales
-  Future postDataSales(
-      String nama, String alamat, String email, String telepon) async {
+  Future postDataSales(String nama, String alamat, String email, String telepon) async {
     try {
       final response = await http
           .post(Uri.parse('http://174.138.23.211:8282/api/apiSales'), body: {
@@ -96,12 +150,26 @@ class Repository {
     } catch (e) {
       print(e.toString());
     }
+
+    Future deleteCustomers(String id) async {
+      var data;
+      try {
+        final response = await http
+            .delete(Uri.parse('http://174.138.23.211:8282/api/apiSales/' + id));
+        if (response.statusCode == 200) {
+          data = await jsonDecode(response.body);
+          return true;
+        } else
+          return false;
+      } catch (e) {
+        print(e.toString());
+      }
+    }
   }
   // Tutup Sales
 
   // ProductOut
-  Future postDataProductOut(
-      String nama, String alamat, String email, String telepon) async {
+  Future postDataProductOut(String nama, String alamat, String email, String telepon) async {
     try {
       final response = await http
           .post(Uri.parse('http://174.138.23.211:8282/api/apiSales'), body: {
@@ -123,16 +191,13 @@ class Repository {
   // Tutup ProductOut
 
   // Companies
-  Future postDataCompanies(String nama_perusahaan, String alamat, String lat, String long, String email) async {
+  Future postDataCompanies(String nama_perusahaan, String alamat, String lat,String long, String email) async {
     try {
       final response = await http.post(
-          Uri.parse('http://174.138.23.211:8282/api/apiCompanies'),   
-          
+          Uri.parse('http://174.138.23.211:8282/api/apiCompanies'),
           headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
+            'Content-Type': 'application/json; charset=UTF-8',
           },
-
-          
           body: jsonEncode({
             "nama_ahaan": nama_perusahaan,
             "alamat": alamat,
@@ -155,22 +220,23 @@ class Repository {
   }
   // Tutup Companies
 
-
   // Suppliers
-    Future postDataSuppliers(String nama, String alamat, String email, String telepon, String npwp, String no_ktp) async {
+  Future postDataSuppliers(String nama, String alamat, String email,String telepon, String npwp, String no_ktp) async {
     try {
-      final response = await http.post(Uri.parse('http://174.138.23.211:8282/api/apiSuppliers'), body: {
-        "nama": nama, 
-        "alamat" : alamat,
-        "email" : email,
-        "telepon" : telepon,
-        "npwp" : npwp,
-        "no_ktp" : no_ktp,
-      });
+      final response = await http.post(
+          Uri.parse('http://174.138.23.211:8282/api/apiSuppliers'),
+          body: {
+            "nama": nama,
+            "alamat": alamat,
+            "email": email,
+            "telepon": telepon,
+            "npwp": npwp,
+            "no_ktp": no_ktp,
+          });
 
-      if(response.statusCode == 201) {
+      if (response.statusCode == 201) {
         return true;
-      } else { 
+      } else {
         return false;
       }
     } catch (e) {
@@ -180,17 +246,18 @@ class Repository {
   // Tutup Suppliers
 
   // Users
-    Future postDataUsers(String name, String email, String role,) async {
+  Future postDataUsers(String name, String email,String role,) async {
     try {
-      final response = await http.post(Uri.parse('http://174.138.23.211:8282/api/apiUsers'), body: {
-        "name": name, 
-        "email" : email,
-        "role" : role,
+      final response = await http
+          .post(Uri.parse('http://174.138.23.211:8282/api/apiUsers'), body: {
+        "name": name,
+        "email": email,
+        "role": role,
       });
 
-      if(response.statusCode == 201) {
+      if (response.statusCode == 201) {
         return true;
-      } else { 
+      } else {
         return false;
       }
     } catch (e) {

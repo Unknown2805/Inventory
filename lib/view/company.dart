@@ -165,23 +165,39 @@ class CompanyState extends State<Company> {
                   style: TextStyle(color: primarycolor),
                 ),
                 onPressed: () async {
-                  bool response = await repository.postDataCompanies(
-                    _nama_perusahaanController.text,
-                    _alamatController.text,
-                    _latController.text,
-                    _longController.text,
-                    _emailController.text,
-                  );
-
-                  if (response == true) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Company()),
-                    );
-                    getData();
-                  } else {
-                    log("error lep");
-                  }
+                    if (_nama_perusahaanController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_alamatController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_emailController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_latController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_longController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_emailController.text.isEmpty) {
+                      print("isi dulu lah");
+                    } else  {
+                      bool response = await repository.postDataCompanies(
+                        _nama_perusahaanController.text,
+                        _alamatController.text,
+                        _latController.text,
+                        _longController.text,
+                        _emailController.text,
+                      );
+                      if (response == true) {
+                        getData();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Company()),
+                        );
+                      }
+                  } 
                 },
               ),
             ],
@@ -303,7 +319,7 @@ class CompanyState extends State<Company> {
                     _longController.text,
                     _emailController.text,
                   );
-
+            
                   if (response == true) {
                     Navigator.push(
                       context,
@@ -464,16 +480,21 @@ class CompanyState extends State<Company> {
                                       foregroundColor: red,
                                       onPressed: (i) {
                                         AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.WARNING,
-                                          animType: AnimType.BOTTOMSLIDE,
-                                          title:
-                                              "data can't be returned if it's been deleted",
-                                          btnCancelOnPress: () {},
-                                          btnOkOnPress: () {},
-                                          btnCancelColor: Colors.blue.shade600,
-                                          btnOkColor: Colors.red.shade600,
-                                        )..show();
+                                                  context: context,
+                                                  dialogType:
+                                                      DialogType.WARNING,
+                                                  animType:
+                                                      AnimType.BOTTOMSLIDE,
+                                                  title: 'Delete',
+                                                  desc:
+                                                      'data can not be returned',
+                                                  btnCancelColor:
+                                                      Colors.blue.shade600,
+                                                  btnOkColor:
+                                                      Colors.red.shade600,
+                                                  btnCancelOnPress: () {},
+                                                  btnOkOnPress: () {},
+                                                )..show();
                                       },
                                     ),
                                     SlidableAction(
@@ -525,7 +546,24 @@ class CompanyState extends State<Company> {
                                           width: 60,
                                           height: 60,
                                           child: TextButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                 AwesomeDialog(
+                                                  context: context,
+                                                  dialogType:
+                                                      DialogType.WARNING,
+                                                  animType:
+                                                      AnimType.BOTTOMSLIDE,
+                                                  title: 'Delete',
+                                                  desc:
+                                                      'data can not be returned',
+                                                  btnCancelColor:
+                                                      Colors.blue.shade600,
+                                                  btnOkColor:
+                                                      Colors.red.shade600,
+                                                  btnCancelOnPress: () {},
+                                                  btnOkOnPress: () {},
+                                                )..show();
+                                              },
                                               child: Icon(
                                                   FluentIcons.delete_24_filled,
                                                   size: 35,
@@ -536,7 +574,9 @@ class CompanyState extends State<Company> {
                                           width: 60,
                                           height: 60,
                                           child: TextButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                editcompany();
+                                              },
                                               child: Icon(
                                                   FluentIcons.edit_24_filled,
                                                   size: 35,

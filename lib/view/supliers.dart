@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -187,10 +188,187 @@ class _SuppliersState extends State<Suppliers> {
                       _no_ktpController.text,
                     );
                     getData();
+                    if (_namaController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_alamatController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_emailController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_teleponController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_npwpController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_no_ktpController.text.isEmpty) {
+                      print("isi dulu lah");
+                    } else {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => Suppliers()),
                     );
+                    }
+                  })
+            ],
+          ),
+        ),
+      );
+
+      Future editDialog() => showDialog(
+        context: context,
+        builder: (context) => Container(
+          child:  AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20), side: BorderSide(color: primarycolor) 
+            ),
+            backgroundColor: background,
+            title:
+                Text('Input data name', style: TextStyle(color: primarycolor)),
+            // ignore: avoid_unnecessary_containers
+            content: Container(
+              height: 324,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TextField(
+                      autofocus: true,
+                      style: TextStyle(color: white),
+                      controller: _namaController,
+                      decoration: InputDecoration(
+                        hintText: 'Name',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      style: TextStyle(color: white),
+                      controller: _alamatController,
+                      decoration: InputDecoration(
+                        hintText: 'Alamat',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        hintText: 'Email',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.number,
+                      controller: _teleponController,
+                      decoration: InputDecoration(
+                        hintText: 'telepon',
+                        hintStyle: TextStyle(
+                          color: white.withOpacity(0.5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.number,
+                      controller: _npwpController,
+                      decoration: InputDecoration(
+                        hintText: 'nomor npwp',
+                        hintStyle: TextStyle(
+                          color: white.withOpacity(0.5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      style: TextStyle(color: white),
+                      keyboardType: TextInputType.number,
+                      controller: _no_ktpController,
+                      decoration: InputDecoration(
+                        hintText: 'ktp_number',
+                        hintStyle: TextStyle(
+                          color: white.withOpacity(0.5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            actions: [
+              TextButton(
+                child: Text(
+                  'CLOSE',
+                  style: TextStyle(color: primarycolor),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _namaController.clear();
+                      _alamatController.clear();
+                      _emailController.clear();
+                      _teleponController.clear();
+                      _npwpController.clear();
+                      _no_ktpController.clear();
+                },
+              ),
+              TextButton(
+                  child: Text(
+                    'SUBMIT',
+                    style: TextStyle(color: primarycolor),
+                  ),
+                  onPressed: () async {
+                    // bool response = await repository.putDataCustomers(
+                    //   _namaController.text,
+                    //   _alamatController.text,
+                    //   _emailController.text,
+                    //   _teleponController.text,
+                    //   _npwpController.text,
+                    //   _no_ktpController.text,
+                    // );
+                    getData();
+                      if (_namaController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_alamatController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_emailController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_teleponController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_npwpController.text.isEmpty) {
+                      print("isi dulu lah");
+                    }
+                    if (_no_ktpController.text.isEmpty) {
+                      print("isi dulu lah");
+                    } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Suppliers()),
+                    );
+                    }
                   })
             ],
           ),
@@ -338,23 +516,17 @@ class _SuppliersState extends State<Suppliers> {
                                           icon: FluentIcons.delete_24_filled,
                                           foregroundColor: red,
                                           onPressed: (i) {
-                                            // AwesomeDialog(
-                                            //   context: context,
-                                            //   dialogType: DialogType.INFO_REVERSED,
-                                            //   animType: AnimType.BOTTOMSLIDE,
-                                            //   title: 'Delete',
-                                            //   desc: 'data can not be returned',
-                                            //   btnCancelOnPress: () {},
-                                            //   btnCancelColor: Colors.blue.shade600,
-                                            //   btnOkColor: Colors.red.shade600,
-                                            //   btnOkOnPress: ()  {
-                                            //     // print(_user["id"]);
-                                            //     // bool response =
-                                            //     //     await repository.deleteDataCategory(
-                                            //     //         _user["id"].toString());
-                                            //     // getData();
-                                            //   },
-                                            // )..show();
+                                            AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.WARNING,
+                                          animType: AnimType.BOTTOMSLIDE,
+                                          title: 'Delete',
+                                          desc: 'data can not be returned',
+                                          btnCancelOnPress: () {},
+                                          btnCancelColor: Colors.blue.shade600,
+                                          btnOkColor: Colors.red.shade600,
+                                          btnOkOnPress: () {},
+                                        )..show();
                                           },
                                         ),
                                         SlidableAction(
@@ -363,12 +535,7 @@ class _SuppliersState extends State<Suppliers> {
                                           icon: FluentIcons.edit_24_filled,
                                           foregroundColor: green,
                                           onPressed: (i) {
-                                            // Navigator.push(
-                                            //     context,
-                                            //     MaterialPageRoute(
-                                            //         builder: (context) => EditCategory(
-                                            //               id: _user["id"],
-                                            //             )));
+                                           editDialog();
                                           },
                                         ),
                                       ],
@@ -415,7 +582,19 @@ class _SuppliersState extends State<Suppliers> {
                                               width: 60,
                                               height: 60,
                                               child: TextButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                     AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.WARNING,
+                                          animType: AnimType.BOTTOMSLIDE,
+                                          title: 'Delete',
+                                          desc: 'data can not be returned',
+                                          btnCancelOnPress: () {},
+                                          btnCancelColor: Colors.blue.shade600,
+                                          btnOkColor: Colors.red.shade600,
+                                          btnOkOnPress: () {},
+                                        )..show();
+                                                  },
                                                   child: Icon(
                                                       FluentIcons
                                                           .delete_24_filled,
@@ -427,7 +606,9 @@ class _SuppliersState extends State<Suppliers> {
                                               width: 60,
                                               height: 60,
                                               child: TextButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    editDialog();
+                                                  },
                                                   child: Icon(
                                                       FluentIcons
                                                           .edit_24_filled,
