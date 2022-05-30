@@ -40,23 +40,6 @@ class Repository {
     }
   }
 
-  Future putDataSuppliers(String name, String id) async {
-    try {
-      final response = await http.put(Uri.parse(
-          'http://174.138.23.211:8282/api/apiCategories/' +
-              id +
-              "?name=" +
-              name));
-      if (response.statusCode == 200) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
   Future deleteDataCategory(String id) async {
     var data;
     try {
@@ -74,7 +57,8 @@ class Repository {
   // Tutup Category
 
   // Customers
-  Future postDataCustomers( String nama, String alamat, String email, String telepon) async {
+  Future postDataCustomers(
+      String nama, String alamat, String email, String telepon) async {
     try {
       final response = await http.post(
           Uri.parse('http://174.138.23.211:8282/api/apiCustomers'),
@@ -93,42 +77,39 @@ class Repository {
     } catch (e) {
       print(e.toString());
     }
-
-    
-
   }
 
   Future putDataCustomers(String name, String id) async {
-      try {
-        final response = await http.put(Uri.parse(
-            'http://174.138.23.211:8282/api/apiCustomers/' +
-                id +
-                "?name=" +
-                name));
-        if (response.statusCode == 200) {
-          return true;
-        } else {
-          return false;
-        }
-      } catch (e) {
-        print(e.toString());
+    try {
+      final response = await http.put(Uri.parse(
+          'http://174.138.23.211:8282/api/apiCustomers/' +
+              id +
+              "?name=" +
+              name));
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
       }
+    } catch (e) {
+      print(e.toString());
     }
+  }
 
   Future deleteDataCustomers(String id) async {
-      var data;
-      try {
-        final response = await http.delete(
-            Uri.parse('http://174.138.23.211:8282/api/apiCustomers/' + id));
-        if (response.statusCode == 200) {
-          data = await jsonDecode(response.body);
-          return true;
-        } else
-          return false;
-      } catch (e) {
-        print(e.toString());
-      }
+    var data;
+    try {
+      final response = await http.delete(
+          Uri.parse('http://174.138.23.211:8282/api/apiCustomers/' + id));
+      if (response.statusCode == 200) {
+        data = await jsonDecode(response.body);
+        return true;
+      } else
+        return false;
+    } catch (e) {
+      print(e.toString());
     }
+  }
   // Tutup Customers
 
   // Sales
@@ -166,10 +147,26 @@ class Repository {
       }
     }
   }
+
+  Future deleteDataSales(String id) async {
+    var data;
+    try {
+      final response = await http
+          .delete(Uri.parse('http://174.138.23.211:8282/api/apiSales/' + id));
+      if (response.statusCode == 200) {
+        data = await jsonDecode(response.body);
+        return true;
+      } else
+        return false;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
   // Tutup Sales
 
   // ProductOut
-  Future postDataProductOut(String nama, String alamat, String email, String telepon) async {
+  Future postDataProductOut(
+      String nama, String alamat, String email, String telepon) async {
     try {
       final response = await http
           .post(Uri.parse('http://174.138.23.211:8282/api/apiSales'), body: {
@@ -191,7 +188,8 @@ class Repository {
   // Tutup ProductOut
 
   // Companies
-  Future postDataCompanies(String nama_perusahaan, String alamat, String lat,String long, String email) async {
+  Future postDataCompanies(String nama_perusahaan, String alamat, String lat,
+      String long, String email) async {
     try {
       final response = await http.post(
           Uri.parse('http://174.138.23.211:8282/api/apiCompanies'),
@@ -218,10 +216,26 @@ class Repository {
       print(e.toString());
     }
   }
+
+  Future deleteDataCompanies(String id) async {
+    var data;
+    try {
+      final response = await http
+          .delete(Uri.parse('http://174.138.23.211:8282/api/apiCompanies/' + id));
+      if (response.statusCode == 200) {
+        data = await jsonDecode(response.body);
+        return true;
+      } else
+        return false;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
   // Tutup Companies
 
   // Suppliers
-  Future postDataSuppliers(String nama, String alamat, String email,String telepon, String npwp, String no_ktp) async {
+  Future postDataSuppliers(String nama, String alamat, String email,
+      String telepon, String npwp, String no_ktp) async {
     try {
       final response = await http.post(
           Uri.parse('http://174.138.23.211:8282/api/apiSuppliers'),
@@ -243,19 +257,15 @@ class Repository {
       print(e.toString());
     }
   }
-  // Tutup Suppliers
 
-  // Users
-  Future postDataUsers(String name, String email,String role,) async {
+  Future putDataSuppliers(String name, String id) async {
     try {
-      final response = await http
-          .post(Uri.parse('http://174.138.23.211:8282/api/apiUsers'), body: {
-        "name": name,
-        "email": email,
-        "role": role,
-      });
-
-      if (response.statusCode == 201) {
+      final response = await http.put(Uri.parse(
+          'http://174.138.23.211:8282/api/apiCategories/' +
+              id +
+              "?name=" +
+              name));
+      if (response.statusCode == 200) {
         return true;
       } else {
         return false;
@@ -264,5 +274,23 @@ class Repository {
       print(e.toString());
     }
   }
-  // Tutup Users
-}
+
+   Future deleteDataSupplier(String id) async {
+    var data;
+    try {
+      final response = await http
+          .delete(Uri.parse('http://174.138.23.211:8282/api/apiSuppliers/' + id));
+      if (response.statusCode == 200) {
+        data = await jsonDecode(response.body);
+        return true;
+      } else
+        return false;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+  }
+  // Tutup Suppliers
+
+ 
+

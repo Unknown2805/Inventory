@@ -171,10 +171,10 @@ class _SalesState extends State<Sales> {
                     if (_teleponController.text.isEmpty) {
                       print("isi dulu lah");
                     } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Sales()),
-                    );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Sales()),
+                      );
                     }
                   })
             ],
@@ -487,7 +487,15 @@ class _SalesState extends State<Sales> {
                                           btnCancelOnPress: () {},
                                           btnCancelColor: Colors.blue.shade600,
                                           btnOkColor: Colors.red.shade600,
-                                          btnOkOnPress: () {},
+                                          btnOkOnPress: () async {
+                                              print(_user["id"]);
+                                                    bool response =
+                                                        await repository
+                                                            .deleteDataSales(
+                                                                _user["id"]
+                                                                    .toString());
+                                                    getData();
+                                          },
                                         )..show();
                                       },
                                     ),
@@ -497,7 +505,7 @@ class _SalesState extends State<Sales> {
                                       icon: FluentIcons.edit_24_filled,
                                       foregroundColor: green,
                                       onPressed: (i) {
-                                       putDialog();
+                                        putDialog();
                                       },
                                     ),
                                   ],
@@ -548,7 +556,15 @@ class _SalesState extends State<Sales> {
                                                   btnOkColor:
                                                       Colors.red.shade600,
                                                   btnCancelOnPress: () {},
-                                                  btnOkOnPress: () {},
+                                                  btnOkOnPress: () async {
+                                                     print(_user["id"]);
+                                                    bool response =
+                                                        await repository
+                                                            .deleteDataSales(
+                                                                _user["id"]
+                                                                    .toString());
+                                                    getData();
+                                                  },
                                                 )..show();
                                               },
                                               child: Icon(

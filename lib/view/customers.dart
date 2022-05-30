@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:inventory_app/model/repo-category.dart';
+import 'package:inventory_app/view/dashboard.dart';
 import './constant.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -321,9 +322,11 @@ class _CustomersState extends State<Customers> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                         IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
+                           onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => Dashboard()),
+                        (Route<dynamic> route) => false);
+                  },
                             icon: const Icon(FluentIcons.arrow_reply_24_filled,
                                 color: Colors.white)),
                         Text("Customers",
@@ -523,7 +526,15 @@ class _CustomersState extends State<Customers> {
                                                   btnOkColor:
                                                       Colors.red.shade600,
                                                   btnCancelOnPress: () {},
-                                                  btnOkOnPress: () {},
+                                                  btnOkOnPress: () async {
+                                                    print(_user["id"]);
+                                                    bool response =
+                                                        await repository
+                                                            .deleteDataCustomers(
+                                                                _user["id"]
+                                                                    .toString());
+                                                    getData();
+                                                  },
                                                 )..show();
                                               },
                                               child: Icon(

@@ -78,69 +78,71 @@ class CompanyState extends State<Company> {
             // ignore: avoid_unnecessary_containers
             content: Container(
               height: 240,
-              child: Column(
-                children: [
-                  TextField(
-                    autofocus: true,
-                    style: TextStyle(color: white),
-                    controller: _nama_perusahaanController,
-                    decoration: InputDecoration(
-                      hintText: 'Name',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TextField(
+                      autofocus: true,
+                      style: TextStyle(color: white),
+                      controller: _nama_perusahaanController,
+                      decoration: InputDecoration(
+                        hintText: 'Name',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                  TextField(
-                    autofocus: true,
-                    style: TextStyle(color: white),
-                    controller: _alamatController,
-                    decoration: InputDecoration(
-                      hintText: 'alamat',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+                    TextField(
+                      autofocus: true,
+                      style: TextStyle(color: white),
+                      controller: _alamatController,
+                      decoration: InputDecoration(
+                        hintText: 'alamat',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                  TextField(
-                    autofocus: true,
-                    style: TextStyle(color: white),
-                    controller: _latController,
-                    decoration: InputDecoration(
-                      hintText: 'lat',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+                    TextField(
+                      autofocus: true,
+                      style: TextStyle(color: white),
+                      controller: _latController,
+                      decoration: InputDecoration(
+                        hintText: 'lat',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                  TextField(
-                    autofocus: true,
-                    style: TextStyle(color: white),
-                    controller: _longController,
-                    decoration: InputDecoration(
-                      hintText: 'long',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+                    TextField(
+                      autofocus: true,
+                      style: TextStyle(color: white),
+                      controller: _longController,
+                      decoration: InputDecoration(
+                        hintText: 'long',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                  TextField(
-                    autofocus: true,
-                    style: TextStyle(color: white),
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      hintText: 'email',
-                      hintStyle: TextStyle(color: white.withOpacity(0.5)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primarycolor),
+                    TextField(
+                      autofocus: true,
+                      style: TextStyle(color: white),
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        hintText: 'email',
+                        hintStyle: TextStyle(color: white.withOpacity(0.5)),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primarycolor),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
@@ -219,6 +221,7 @@ class CompanyState extends State<Company> {
             content: Container(
               height: 324,
               child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
                 child: Column(
                   children: [
                     TextField(
@@ -487,13 +490,23 @@ class CompanyState extends State<Company> {
                                                       AnimType.BOTTOMSLIDE,
                                                   title: 'Delete',
                                                   desc:
-                                                      'data can not be returned',
+                                                      'data can not be returnld',
                                                   btnCancelColor:
                                                       Colors.blue.shade600,
                                                   btnOkColor:
                                                       Colors.red.shade600,
                                                   btnCancelOnPress: () {},
-                                                  btnOkOnPress: () {},
+                                                  
+                                                    btnOkOnPress: () async {
+                                                    print(_user["id"]);
+                                                    bool response =
+                                                        await repository
+                                                            .deleteDataCompanies(
+                                                                _user["id"]
+                                                                    .toString());
+                                                    getData();
+                                                    },
+                                                  
                                                 )..show();
                                       },
                                     ),
@@ -561,7 +574,17 @@ class CompanyState extends State<Company> {
                                                   btnOkColor:
                                                       Colors.red.shade600,
                                                   btnCancelOnPress: () {},
-                                                  btnOkOnPress: () {},
+                                                  
+                                                    btnOkOnPress: () async {
+                                                    print(_user["id"]);
+                                                    bool response =
+                                                        await repository
+                                                            .deleteDataCompanies(
+                                                                _user["id"]
+                                                                    .toString());
+                                                    getData();
+                                                  },
+                                                  
                                                 )..show();
                                               },
                                               child: Icon(
