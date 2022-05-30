@@ -8,7 +8,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:inventory_app/view/dashboard.dart';
 
 class Users extends StatefulWidget {
-  const Users({Key? key}) : super(key: key);
+  const Users({Key key}) : super(key: key);
 
   @override
   State<Users> createState() => _UsersState();
@@ -33,7 +33,6 @@ class _UsersState extends State<Users> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: background,
-        
         body: Stack(children: [
           Column(
             children: [
@@ -47,10 +46,10 @@ class _UsersState extends State<Users> {
   Future openDialog() => showDialog(
         context: context,
         builder: (context) => Container(
-          child:  AlertDialog(
+          child: AlertDialog(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20), side: BorderSide(color: primarycolor) 
-            ),
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(color: primarycolor)),
             backgroundColor: background,
             title:
                 Text('Input data name', style: TextStyle(color: primarycolor)),
@@ -107,8 +106,8 @@ class _UsersState extends State<Users> {
                 onPressed: () {
                   Navigator.of(context).pop();
                   _namaController.clear();
-                      _roleController.clear();
-                      _emailController.clear();
+                  _roleController.clear();
+                  _emailController.clear();
                 },
               ),
               TextButton(
@@ -133,10 +132,9 @@ class _UsersState extends State<Users> {
         ),
       );
 
-void submit() {
+  void submit() {
     Navigator.of(context).pop();
   }
-
 
   Widget usersheader(BuildContext context) {
     return SafeArea(
@@ -147,7 +145,7 @@ void submit() {
       child: search
           ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               IconButton(
-                   onPressed: () {
+                  onPressed: () {
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(builder: (context) => Dashboard()),
                         (Route<dynamic> route) => false);
@@ -239,8 +237,7 @@ void submit() {
                                 child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text("${_user["name"]}",
                                           style: TextStyle(

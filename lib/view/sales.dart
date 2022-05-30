@@ -9,7 +9,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import './constant.dart';
 
 class Sales extends StatefulWidget {
-  const Sales({Key? key}) : super(key: key);
+  const Sales({Key key}) : super(key: key);
 
   @override
   State<Sales> createState() => _SalesState();
@@ -21,7 +21,7 @@ class _SalesState extends State<Sales> {
   final _alamatController = TextEditingController();
   final _emailController = TextEditingController();
   final _teleponController = TextEditingController();
-  
+
   bool search = true;
   bool heightBox = true;
 
@@ -63,13 +63,13 @@ class _SalesState extends State<Sales> {
         ]));
   }
 
-   Future openDialog() => showDialog(
+  Future openDialog() => showDialog(
         context: context,
         builder: (context) => Container(
-          child:  AlertDialog(
+          child: AlertDialog(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20), side: BorderSide(color: primarycolor) 
-            ),
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(color: primarycolor)),
             backgroundColor: background,
             title:
                 Text('Input data name', style: TextStyle(color: primarycolor)),
@@ -140,9 +140,9 @@ class _SalesState extends State<Sales> {
                 onPressed: () {
                   Navigator.of(context).pop();
                   _namaController.clear();
-                      _alamatController.clear();
-                      _emailController.clear();
-                      _teleponController.clear();
+                  _alamatController.clear();
+                  _emailController.clear();
+                  _teleponController.clear();
                   _alamatController.clear();
                 },
               ),
@@ -186,11 +186,12 @@ class _SalesState extends State<Sales> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                         IconButton(
-                           onPressed: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => Dashboard()),
-                        (Route<dynamic> route) => false);
-                  },
+                            onPressed: () {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => Dashboard()),
+                                  (Route<dynamic> route) => false);
+                            },
                             icon: const Icon(FluentIcons.arrow_reply_24_filled,
                                 color: Colors.white)),
                         Text("sales",
@@ -309,236 +310,254 @@ class _SalesState extends State<Sales> {
   }
 
   Widget saleslist(BuildContext context) {
-    return _users.length == 0 ? RefreshProgressIndicator(color: primarycolor ,backgroundColor: background,) : Expanded(
-        child: ListView.builder(
-      itemBuilder: (context, i) {
-        var _user = _users[i];
-        return Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 25,
-            ),
-            child: SingleChildScrollView(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: heightBox ? 50 : 140,
-                  decoration: BoxDecoration(
-                    color: boxColor.withOpacity(0.6),
-                    borderRadius: BorderRadius.circular(10),
+    return _users.length == 0
+        ? RefreshProgressIndicator(
+            color: primarycolor,
+            backgroundColor: background,
+          )
+        : Expanded(
+            child: ListView.builder(
+            itemBuilder: (context, i) {
+              var _user = _users[i];
+              return Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 25,
                   ),
-                  child: heightBox
-                      ? Slidable(
-                          endActionPane: ActionPane(
-                            motion: StretchMotion(),
-                            children: [
-                              SlidableAction(
-                                backgroundColor: Colors.transparent,
-                                icon: FluentIcons.delete_24_filled,
-                                foregroundColor: red,
-                                onPressed: (i) {
-                                  // AwesomeDialog(
-                                  //   context: context,
-                                  //   dialogType: DialogType.INFO_REVERSED,
-                                  //   animType: AnimType.BOTTOMSLIDE,
-                                  //   title: 'Delete',
-                                  //   desc: 'data can not be returned',
-                                  //   btnCancelOnPress: () {},
-                                  //   btnCancelColor: Colors.blue.shade600,
-                                  //   btnOkColor: Colors.red.shade600,
-                                  //   btnOkOnPress: ()  {
-                                  //     // print(_user["id"]);
-                                  //     // bool response =
-                                  //     //     await repository.deleteDataCategory(
-                                  //     //         _user["id"].toString());
-                                  //     // getData();
-                                  //   },
-                                  // )..show();
-                                },
-                              ),
-                              SlidableAction(
-                                backgroundColor: Colors.transparent,
-                                // label: 'Edit',
-                                icon: FluentIcons.edit_24_filled,
-                                foregroundColor: green,
-                                onPressed: (i) {
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => EditCategory(
-                                  //               id: _user["id"],
-                                  //             )));
-                                },
-                              ),
-                            ],
-                          ),
-                          child: Container(
-                              alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: boxColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(FluentIcons.shopping_bag_24_filled,
-                                      color: primarycolor, size: 25),
-                                  SizedBox(width: 10),
-                                  Text("${_user["nama"]}",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold))
-                                ],
-                              )),
-                        )
-                      : Slidable(
-                          endActionPane: ActionPane(
-                            motion: StretchMotion(),
-                            children: [
-                              Expanded(
-                                child: SizedBox(
-                                    width: 60,
-                                    height: 60,
-                                    child: TextButton(
-                                        onPressed: () {
-                                        AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.WARNING,
-                                          animType: AnimType.BOTTOMSLIDE,
-                                          title:  'Data will gone ',
-                                          btnCancelOnPress: () {},
-                                          btnOkOnPress: () {},
-                                        )..show();
+                  child: SingleChildScrollView(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: heightBox ? 50 : 140,
+                        decoration: BoxDecoration(
+                          color: boxColor.withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: heightBox
+                            ? Slidable(
+                                endActionPane: ActionPane(
+                                  motion: StretchMotion(),
+                                  children: [
+                                    SlidableAction(
+                                      backgroundColor: Colors.transparent,
+                                      icon: FluentIcons.delete_24_filled,
+                                      foregroundColor: red,
+                                      onPressed: (i) {
+                                        // AwesomeDialog(
+                                        //   context: context,
+                                        //   dialogType: DialogType.INFO_REVERSED,
+                                        //   animType: AnimType.BOTTOMSLIDE,
+                                        //   title: 'Delete',
+                                        //   desc: 'data can not be returned',
+                                        //   btnCancelOnPress: () {},
+                                        //   btnCancelColor: Colors.blue.shade600,
+                                        //   btnOkColor: Colors.red.shade600,
+                                        //   btnOkOnPress: ()  {
+                                        //     // print(_user["id"]);
+                                        //     // bool response =
+                                        //     //     await repository.deleteDataCategory(
+                                        //     //         _user["id"].toString());
+                                        //     // getData();
+                                        //   },
+                                        // )..show();
                                       },
-                                        child: Icon(
-                                            FluentIcons.delete_24_filled,
-                                            size: 35,
-                                            color: red))),
-                              ),
-                              Expanded(
-                                child: SizedBox(
-                                    width: 60,
-                                    height: 60,
-                                    child: TextButton(
-                                        onPressed: () {
-                                        AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.INFO,
-                                          animType: AnimType.BOTTOMSLIDE,
-                                          title: 'Change your data in here',
-                                          btnCancelOnPress: () {},
-                                          btnOkOnPress: () {},
-                                        )..show();
+                                    ),
+                                    SlidableAction(
+                                      backgroundColor: Colors.transparent,
+                                      // label: 'Edit',
+                                      icon: FluentIcons.edit_24_filled,
+                                      foregroundColor: green,
+                                      onPressed: (i) {
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) => EditCategory(
+                                        //               id: _user["id"],
+                                        //             )));
                                       },
-                                        child: Icon(FluentIcons.edit_24_filled,
-                                            size: 35, color: green))),
-                              ),
-                            ],
-                          ),
-                          child: Container(
-                              width: 330,
-                              padding: EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                  color: boxColor,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                      padding: EdgeInsets.only(left: 10),
-                                      child: Row(
-                                        children: [
-                                          Text("${_user["nama"]}",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold)),
-                                        ],
-                                      )),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
+                                    ),
+                                  ],
+                                ),
+                                child: Container(
+                                    alignment: Alignment.centerLeft,
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      color: boxColor,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(FluentIcons.shopping_bag_24_filled,
+                                            color: primarycolor, size: 25),
+                                        SizedBox(width: 10),
+                                        Text("${_user["nama"]}",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold))
+                                      ],
+                                    )),
+                              )
+                            : Slidable(
+                                endActionPane: ActionPane(
+                                  motion: StretchMotion(),
+                                  children: [
+                                    Expanded(
+                                      child: SizedBox(
+                                          width: 60,
+                                          height: 60,
+                                          child: TextButton(
+                                              onPressed: () {
+                                                AwesomeDialog(
+                                                  context: context,
+                                                  dialogType:
+                                                      DialogType.WARNING,
+                                                  animType:
+                                                      AnimType.BOTTOMSLIDE,
+                                                  title: 'Data will gone ',
+                                                  btnCancelOnPress: () {},
+                                                  btnOkOnPress: () {},
+                                                )..show();
+                                              },
+                                              child: Icon(
+                                                  FluentIcons.delete_24_filled,
+                                                  size: 35,
+                                                  color: red))),
+                                    ),
+                                    Expanded(
+                                      child: SizedBox(
+                                          width: 60,
+                                          height: 60,
+                                          child: TextButton(
+                                              onPressed: () {
+                                                AwesomeDialog(
+                                                  context: context,
+                                                  dialogType: DialogType.INFO,
+                                                  animType:
+                                                      AnimType.BOTTOMSLIDE,
+                                                  title:
+                                                      'Change your data in here',
+                                                  btnCancelOnPress: () {},
+                                                  btnOkOnPress: () {},
+                                                )..show();
+                                              },
+                                              child: Icon(
+                                                  FluentIcons.edit_24_filled,
+                                                  size: 35,
+                                                  color: green))),
+                                    ),
+                                  ],
+                                ),
+                                child: Container(
+                                    width: 330,
+                                    padding: EdgeInsets.all(12),
+                                    decoration: BoxDecoration(
+                                        color: boxColor,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                            padding: EdgeInsets.only(left: 10),
+                                            child: Row(
+                                              children: [
+                                                Text("${_user["nama"]}",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            )),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Container(
-                                                  width: 35,
-                                                  child: Icon(
-                                                      FluentIcons
-                                                          .location_24_filled,
-                                                      color: primarycolor)),
-                                              SizedBox(width: 5),
-                                              Text("${_user["alamat"]}",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14)),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                        width: 35,
+                                                        child: Icon(
+                                                            FluentIcons
+                                                                .location_24_filled,
+                                                            color:
+                                                                primarycolor)),
+                                                    SizedBox(width: 5),
+                                                    Text("${_user["alamat"]}",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 14)),
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(height: 5),
+                                              Container(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                        width: 35,
+                                                        child: Icon(
+                                                            FluentIcons
+                                                                .mail_24_filled,
+                                                            color:
+                                                                primarycolor)),
+                                                    SizedBox(width: 5),
+                                                    Text("${_user["alamat"]}",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 14)),
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(height: 5),
+                                              Container(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                        width: 35,
+                                                        child: Icon(
+                                                            FluentIcons
+                                                                .call_24_filled,
+                                                            color:
+                                                                primarycolor)),
+                                                    SizedBox(width: 5),
+                                                    Text("${_user["telepon"]}",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 14)),
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(height: 5),
                                             ],
                                           ),
                                         ),
-                                        SizedBox(height: 5),
-                                        Container(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                  width: 35,
-                                                  child: Icon(
-                                                      FluentIcons
-                                                          .mail_24_filled,
-                                                      color: primarycolor)),
-                                              SizedBox(width: 5),
-                                              Text("${_user["alamat"]}",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14)),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(height: 5),
-                                        Container(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                  width: 35,
-                                                  child: Icon(
-                                                      FluentIcons
-                                                          .call_24_filled,
-                                                      color: primarycolor)),
-                                              SizedBox(width: 5),
-                                              Text("${_user["telepon"]}",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14)),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(height: 5),
                                       ],
-                                    ),
-                                  ),
-                                ],
-                              )),
-                        ),
-                ),
-                SizedBox(height: 5),
-              ],
-            )));
-      },
-      itemCount: _users.length,
-    ));
+                                    )),
+                              ),
+                      ),
+                      SizedBox(height: 5),
+                    ],
+                  )));
+            },
+            itemCount: _users.length,
+          ));
   }
 
   getData() async {

@@ -6,7 +6,7 @@ import 'constant.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class Suppliers extends StatefulWidget {
-  const Suppliers({Key? key}) : super(key: key);
+  const Suppliers({Key key}) : super(key: key);
 
   @override
   State<Suppliers> createState() => _SuppliersState();
@@ -61,10 +61,10 @@ class _SuppliersState extends State<Suppliers> {
   Future openDialog() => showDialog(
         context: context,
         builder: (context) => Container(
-          child:  AlertDialog(
+          child: AlertDialog(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20), side: BorderSide(color: primarycolor) 
-            ),
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(color: primarycolor)),
             backgroundColor: background,
             title:
                 Text('Input data name', style: TextStyle(color: primarycolor)),
@@ -165,11 +165,11 @@ class _SuppliersState extends State<Suppliers> {
                 onPressed: () {
                   Navigator.of(context).pop();
                   _namaController.clear();
-                      _alamatController.clear();
-                      _emailController.clear();
-                      _teleponController.clear();
-                      _npwpController.clear();
-                      _no_ktpController.clear();
+                  _alamatController.clear();
+                  _emailController.clear();
+                  _teleponController.clear();
+                  _npwpController.clear();
+                  _no_ktpController.clear();
                 },
               ),
               TextButton(

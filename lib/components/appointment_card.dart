@@ -8,7 +8,11 @@ class AppointmentCard extends StatelessWidget {
   final String dateTime;
 
   const AppointmentCard(
-      {Key? key, required this.padding, this.isActive = false, required this.name, required this.dateTime})
+      {Key key,
+      @required this.padding,
+      this.isActive = false,
+      @required this.name,
+      @required this.dateTime})
       : super(key: key);
 
   @override

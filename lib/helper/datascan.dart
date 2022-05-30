@@ -13,12 +13,12 @@ class DataScan {
   int qty;
   int harga;
   DataScan(
-      {required this.status,
-      required this.description,
-      required this.qty,
-      required this.nama,
-      required this.images,
-      required this.harga});
+      {@required this.status,
+      @required this.description,
+      @required this.qty,
+      @required this.nama,
+      @required this.images,
+      @required this.harga});
 
   @override
   String toString() {

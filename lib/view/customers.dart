@@ -7,7 +7,7 @@ import './constant.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class Customers extends StatefulWidget {
-  const Customers({Key? key}) : super(key: key);
+  const Customers({Key key}) : super(key: key);
 
   @override
   State<Customers> createState() => _CustomersState();
@@ -64,8 +64,10 @@ class _CustomersState extends State<Customers> {
         context: context,
         builder: (context) => Container(
           child: AlertDialog(
-          backgroundColor: background,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),side: BorderSide(color: primarycolor)),
+            backgroundColor: background,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(color: primarycolor)),
             title:
                 Text('Input data name', style: TextStyle(color: primarycolor)),
             // ignore: avoid_unnecessary_containers
@@ -80,7 +82,6 @@ class _CustomersState extends State<Customers> {
                       style: TextStyle(color: white),
                       controller: _namaController,
                       decoration: InputDecoration(
-                        
                         hintText: 'Name',
                         hintStyle: TextStyle(color: white.withOpacity(0.5)),
                         enabledBorder: UnderlineInputBorder(
@@ -138,10 +139,10 @@ class _CustomersState extends State<Customers> {
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
-                      _namaController.clear();
-                      _alamatController.clear();
-                      _emailController.clear();
-                      _teleponController.clear();
+                  _namaController.clear();
+                  _alamatController.clear();
+                  _emailController.clear();
+                  _teleponController.clear();
                 },
               ),
               TextButton(
@@ -150,38 +151,31 @@ class _CustomersState extends State<Customers> {
                     style: TextStyle(color: primarycolor),
                   ),
                   onPressed: () async {
-        
                     bool response = await repository.postDataCustomers(
                       _namaController.text,
                       _alamatController.text,
                       _emailController.text,
                       _teleponController.text,
                     );
-                  
+
                     getData();
-                     if (_namaController.text.isEmpty
-                    ){
+                    if (_namaController.text.isEmpty) {
                       print("isi dulu lah");
-                      
                     }
-                     if (_alamatController.text.isEmpty
-                    ){
+                    if (_alamatController.text.isEmpty) {
                       print("isi dulu lah");
-                    } 
-                     if (_emailController.text.isEmpty
-                    ){
+                    }
+                    if (_emailController.text.isEmpty) {
                       print("isi dulu lah");
-                    } 
-                     if (_teleponController.text.isEmpty
-                    ){
+                    }
+                    if (_teleponController.text.isEmpty) {
                       print("isi dulu lah");
-                    } else{
+                    } else {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Customers()),
-                        );
+                        context,
+                        MaterialPageRoute(builder: (context) => Customers()),
+                      );
                     }
-                    
                   })
             ],
           ),
@@ -191,6 +185,7 @@ class _CustomersState extends State<Customers> {
   void submit() {
     Navigator.of(context).pop();
   }
+
   Widget customersheader(BuildContext context) {
     return SafeArea(
       child: Column(

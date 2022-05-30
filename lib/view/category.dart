@@ -10,7 +10,7 @@ import 'package:inventory_app/view/dashboard.dart';
 import 'constant.dart';
 
 class Categories extends StatefulWidget {
-  const Categories({Key? key}) : super(key: key);
+  const Categories({Key key}) : super(key: key);
 
   @override
   _CategoriesState createState() => _CategoriesState();
@@ -66,10 +66,10 @@ class _CategoriesState extends State<Categories> {
         barrierDismissible: false,
         context: context,
         builder: (context) => Container(
-          child:  AlertDialog(
+          child: AlertDialog(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20), side: BorderSide(color: primarycolor) 
-            ),
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(color: primarycolor)),
             backgroundColor: background,
             title:
                 Text('Input data name', style: TextStyle(color: primarycolor)),
@@ -128,15 +128,15 @@ class _CategoriesState extends State<Categories> {
         ),
       );
 
-      Future opennDialog(String id) => showDialog(
+  Future opennDialog(String id) => showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) => Container(
-          child:  AlertDialog(
+          child: AlertDialog(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20), side: BorderSide(color: primarycolor) 
-            ),
-           
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(color: primarycolor)),
+
             backgroundColor: background,
             title:
                 Text('Input data name', style: TextStyle(color: primarycolor)),
@@ -183,9 +183,7 @@ class _CategoriesState extends State<Categories> {
                 ),
                 onPressed: () async {
                   bool response = await repository.putDataCategory(
-                    _nameController.text,
-                    id
-                  );
+                      _nameController.text, id);
                   getData();
                   Navigator.push(
                     context,
@@ -289,18 +287,18 @@ class _CategoriesState extends State<Categories> {
                                     context: context,
                                     dialogType: DialogType.WARNING,
                                     animType: AnimType.BOTTOMSLIDE,
-                                    title: "data can't be returned if it's been deleted",
-                                   
+                                    title:
+                                        "data can't be returned if it's been deleted",
                                     btnCancelOnPress: () {},
                                     btnOkOnPress: () async {
                                       print(_user["id"]);
-                                    bool response =
-                                        await repository.deleteDataCategory(
-                                            _user["id"].toString());
-                                    getData();
+                                      bool response =
+                                          await repository.deleteDataCategory(
+                                              _user["id"].toString());
+                                      getData();
                                     },
                                     btnCancelColor: Colors.blue.shade600,
-                                  btnOkColor: Colors.red.shade600,
+                                    btnOkColor: Colors.red.shade600,
                                   )..show();
                                 },
                               ),
@@ -310,7 +308,7 @@ class _CategoriesState extends State<Categories> {
                                 icon: FluentIcons.edit_24_filled,
                                 foregroundColor: green,
                                 onPressed: (i) {
-                                   opennDialog(_user["id"].toString());
+                                  opennDialog(_user["id"].toString());
                                   // AwesomeDialog(
                                   //   context: context,
                                   //   dialogType: DialogType.INFO,

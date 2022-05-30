@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:inventory_app/model/add_category.dart';
 import 'package:inventory_app/model/add_customers.dart';
 import 'package:inventory_app/model/add_sales.dart';
+import 'package:inventory_app/provider/parent.dart';
 import 'package:inventory_app/view/category.dart';
 import 'package:inventory_app/view/constant.dart';
 import 'package:inventory_app/view/customers.dart';
+import 'package:inventory_app/view/login.dart';
 import 'package:inventory_app/view/sales.dart';
 import 'package:inventory_app/view/users.dart';
+import 'package:provider/provider.dart';
 import 'view/dashboard.dart';
 import 'package:flutter/services.dart';
 
@@ -20,27 +23,35 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      checkerboardOffscreenLayers: false,
-      title: 'Flutter Demo',
-      routes: {
-        '/users': (context) => Users(),
-        '/customers': (context) => Customers(),
-        '/add-category': (context) => AddCategory(),
-        '/add-customers': (context) => AddCustomers(),
-        '/add-sales': (context) => AddSales(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => Parent(), // parentProvier
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        checkerboardOffscreenLayers: false,
+        title: 'Flutter Demo',
+        routes: {
+          '/users': (context) => Users(),
+          '/customers': (context) => Customers(),
+          '/add-category': (context) => AddCategory(),
+          '/add-customers': (context) => AddCustomers(),
+          '/add-sales': (context) => AddSales(),
 
-        //
-        '/category': (context) => Categories(),
-        '/customers': (context) => Customers(),
-      },
-      home: const Dashboard(),
+          //
+          '/category': (context) => Categories(),
+          '/customers': (context) => Customers(),
+        },
+        home: LoginPage(),
+        // home: const Dashboard(),
+      ),
     );
   }
 }
