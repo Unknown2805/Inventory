@@ -317,7 +317,7 @@ class _SuppliersState extends State<Suppliers> {
                   var _user = _users[i];
                   return Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                          EdgeInsets.symmetric(horizontal: 25, vertical:4),
                       child: SingleChildScrollView(
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
